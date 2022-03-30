@@ -12,12 +12,9 @@ class RegisteredController extends Controller
     //      $users = User::paginate(3);
         $users = User::where('status','!=','1')->paginate(3);
         return view('admin.users.index')->with('users',$users);
-     
-       
     }
 
     public function edit($id){
-        
         $user_roles=User::find($id);
         return view('admin.users.edit')->with('user_roles',$user_roles);
     }
