@@ -18,8 +18,6 @@ Route::get('/', function () {
 Auth::routes();
 
 
-
-
 Route::get('collections','Frontend\CollectionController@index');
 
 //Frontend
