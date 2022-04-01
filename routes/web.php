@@ -17,13 +17,21 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('clear-cart','Frontend\CartController@clearcart');
+Route::delete('delete-from-cart','Frontend\CartController@deletefromcart');
+Route::post('update-to-cart','Frontend\CartController@updatetocart');
+Route::get('/cart','Frontend\CartController@index');
+Route::get('/load-cart-data','Frontend\CartController@cartloadbyajax');
+Route::post('add-to-cart','Frontend\CartController@addtocart');
+
+
 Route::get('collections','Frontend\CollectionController@index');
 
 //Frontend
 Route::get('collection/{group_url}','Frontend\CollectionController@groupview');
 Route::get('collection/{group_url}/{cate_url}','Frontend\CollectionController@categoryview');
 Route::get('collection/{group_url}/{cate_url}/{subcate_url}','Frontend\CollectionController@subcategoryview');
-
+Route::get('collection/{group_url}/{cate_url}/{subcate_url}/{prod_url}','Frontend\CollectionController@productview');
 
 Route::group(['middleware'=>['auth','isuser']],function(){
 

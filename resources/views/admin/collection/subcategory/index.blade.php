@@ -124,6 +124,9 @@
                             @endforeach 
                         </tbody>
                     </table>
+                    <div class="float-right">
+                        {{$subcategory->links()}}
+                    </div>
                 </div>
             </div>
             

@@ -21,26 +21,31 @@
               
                     
                     <ul class="navbar-nav ml-auto ">
-                      <!-- Right -
+                    
                       <li class="nav-item">
-                        <a style="color:black" class="nav-link waves-effect" href="#">Home
+                        <a style="color:black" class="nav-link waves-effect" href="{{url('/')}}">Home
                           <span class="sr-only">(current)</span>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a style="color:black" class="nav-link waves-effect" href="#" target="_blank">Collections</a>
+                        <a style="color:black" class="nav-link waves-effect" href="{{url('collections')}}" >Collections</a>
                       </li>
                       <li class="nav-item">
-                        <a style="color:black" class="nav-link waves-effect" href="#" target="_blank">All Products</a>
+                        <a style="color:black" class="nav-link waves-effect" href="{{url('collections')}}" >All Products</a>
                       </li>
-                      <li class="nav-item">
-                        <a class="nav-link waves-effect">
-                          <span class="badge red z-depth-1 mr-1"> 1 </span>
+                    
+                      <li class="nav-item" style="padding-right:20px">
+                        <a href="{{url('cart')}}" class="nav-link waves-effect">
                           <i class="fas fa-shopping-cart"></i>
-                          <span class="clearfix d-none d-sm-inline-block"> Cart </span>
+                          <span class="clearfix">
+                            Cart
+                            <span class="basket-item-count">
+                                <span class="badge badge-pill red"> 0 </span>
+                            </span>
+                        </span>
                         </a>
                       </li>
-              -->
+              
                       <!-- Authentication Links -->
                       @if (Auth::guest())
                               <li class="nav-item"><a style="color:black" class="nav-link" href="{{ route('login') }}">Login</a></li>

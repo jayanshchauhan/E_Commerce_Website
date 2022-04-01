@@ -51,6 +51,9 @@
                             @endforeach      
                         </tbody>
                     </table>
+                    <div class="float-right">
+                        {{$category->links()}}
+                    </div>
                 </div>
             </div>
             

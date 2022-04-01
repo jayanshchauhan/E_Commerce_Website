@@ -13,7 +13,7 @@ class SubCategoryController extends Controller
 {
     public function index(){
         $category = Category::where('status','!=','2')->get();
-        $subcategory = SubCategory::where('status','!=','2')->get();
+        $subcategory = SubCategory::where('status','!=','2')->paginate(3);
         return view('admin.collection.subcategory.index')
         ->with('subcategory',$subcategory)
         ->with('category',$category);

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\File;
 class CategoryController extends Controller
 {
     public function index(){
-        $category = Category::where('status','!=','2')->get();
+        $category = Category::where('status','!=','2')->paginate(3);
          return view('admin.collection.category.index')->with('category', $category);
        
     }

@@ -7,6 +7,10 @@
   <title>
       @yield('title') | Jaykart
   </title>
+
+   <!-- CSRF Token -->
+   <meta name="csrf-token" content="{{ csrf_token() }}">
+   
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
   <!-- Bootstrap core CSS -->
@@ -15,6 +19,7 @@
   <link href="{{ asset('assets/css/mdb.min.css') }}" rel="stylesheet">
   <!-- Your custom styles (optional) -->
   <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
 </head>
 <body>
 
@@ -27,6 +32,7 @@
     @include('layouts.inc.front-footer')
 
 <!-- SCRIPTS -->
+
 <!-- JQuery -->
 <script type="text/javascript" src="{{ asset('assets/js/jquery.min.js') }}"></script>
 <!-- Bootstrap tooltips -->
@@ -34,6 +40,12 @@
 <!-- Bootstrap core Javascript -->
 <script type="text/javascript" src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
 <!-- MDB core JavaScript -->
-<script type="text/javascript" src="{{asset('js/mdb.min.js') }}"></script>
+<script type="text/javascript" src="{{asset('assets/js/mdb.min.js') }}"></script>
+<!-- Custom JavaScript -->
+<script type="text/javascript" src="{{asset('assets/js/custom.js') }}"></script>
+<!-- JavaScript -->
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+
 </body>
 </html>

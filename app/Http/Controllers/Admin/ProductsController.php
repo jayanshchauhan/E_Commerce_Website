@@ -10,7 +10,7 @@ use App\Models\Product;
 class ProductsController extends Controller
 {
     public function index(){
-        $products = Product::where('status','!=','2')->get();
+        $products = Product::where('status','!=','2')->paginate(3);
     //    $products = Product::get();
         return view('admin.collection.product.index')
         ->with('products',$products);

@@ -12,7 +12,7 @@
    <div class="carousel-inner" role="listbox">
       <!--First slide-->
       <div class="carousel-item active">
-        <img width="100px" height="500px" class="d-block w-100" src="https://i.imgur.com/iDwDQ4o.png"
+        <img width="100px" height="500px" class="d-block w-100" src="https://4.imimg.com/data4/IR/TM/MY-23123427/online-shopping-website-500x500.png"
           alt="First slide">
       </div>
       <!--/First slide-->
