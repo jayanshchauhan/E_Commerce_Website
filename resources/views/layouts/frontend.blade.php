@@ -20,6 +20,15 @@
   <!-- Your custom styles (optional) -->
   <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+
+  <style>
+      .ui-widget{
+          z-index: 2024;
+      }
+
+  </style>
+
 </head>
 <body>
 
@@ -41,6 +50,35 @@
 <script type="text/javascript" src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="{{asset('assets/js/mdb.min.js') }}"></script>
+
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+<script>
+    $(document).ready(function(){
+
+        src = "{{route('searchproductajax')}}";
+        $("#search_text" ).autocomplete({
+        source: function(request, response){
+            $.ajax({
+            url: src,
+            data: {
+                term: request.term
+            },
+            dataType: "json",
+            success: function (data) {
+                response(data);
+            }
+            });
+        },
+        minlenght: 1,
+        });
+
+        $(document).on('click','.ui-menu-item', function () {
+        $('#search-form').submit();
+        });
+
+    });
+</script>
+
 <!-- Custom JavaScript -->
 <script type="text/javascript" src="{{asset('assets/js/custom.js') }}"></script>
 <!-- JavaScript -->

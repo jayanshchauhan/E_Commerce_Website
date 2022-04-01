@@ -73,5 +73,5 @@ class CollectionController extends Controller
             ->with('products', $products);
     }
 
-
+    
 }

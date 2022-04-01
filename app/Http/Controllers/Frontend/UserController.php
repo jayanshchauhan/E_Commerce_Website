@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use App\User;
+use App\Models\Product;
 
 class UserController extends Controller
 {
@@ -40,6 +41,48 @@ class UserController extends Controller
 
         $user->update();
         return redirect()->back()->with('status','Profile Updated');
+    }
+
+    public function SearchautoComplete(Request $request){
+        $query = $request->get('term','');
+        $products = Product::where('name','LIKE','%'.$query.'%')->where('status', '0')->get();
+        $data = [];
+        foreach ($products as $items) {
+            $data[] = [
+                 'value'=>$items->name,
+                'id'=>$items->id
+            ];
+        }
+        if(count($data))
+        {
+            return $data;
+        }
+        else
+        {
+            return ['value'=>'No Result Found','id'=>''];
+        }
+    }
+
+    public function result(Request $request){
+        $searchingdata = $request->input('search_product');
+        $products = Product::where('name','LIKE','%'.$searchingdata.'%')->where('status','0')->first();
+            if($products)
+            {
+                if(isset($_POST['searchbtn']))
+                {
+                    return redirect('collection/'.$products->subcategory->category->group->url.'/'.
+                    $products->subcategory->category->url.'/'.$products->subcategory->url);
+                }
+                else
+                {
+                    return redirect('collection/'.$products->subcategory->category->group->url.'/'.
+                    $products->subcategory->category->url.'/'.$products->subcategory->url.'/'.$products->url);
+                }
+            }
+            // return redirect('search/'.$products->url);
+            else{
+                return redirect('/')->with('status', 'Product Not Available');
+            }
     }
 
 }

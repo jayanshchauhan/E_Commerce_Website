@@ -18,22 +18,21 @@
                       <img src= {{url('images/logo.png')}} alt="Trulli" width="50" height="50">
                     </a>
                     </ul>
-              
-                    
+                
+                        <div class="col-md-5 my-auto">
+                          <form id="search-form" action="{{url('searching')}}" method="POST">
+                            {{ @csrf_field() }}
+                              <div class="input-group">
+                                  <input type="text" name="search_product"  id="search_text" class="form-control" placeholder="Search here..." />
+                                  <button type="submit" name="searchbtn" class="input-group-text" id="basic-addon2">
+                                    <i class="fa fa-search"></i>
+                                  </button>
+                              </div>
+                            </form>
+                        </div>
+             
                     <ul class="navbar-nav ml-auto ">
-                    
-                      <li class="nav-item">
-                        <a style="color:black" class="nav-link waves-effect" href="{{url('/')}}">Home
-                          <span class="sr-only">(current)</span>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a style="color:black" class="nav-link waves-effect" href="{{url('collections')}}" >Collections</a>
-                      </li>
-                      <li class="nav-item">
-                        <a style="color:black" class="nav-link waves-effect" href="{{url('collections')}}" >All Products</a>
-                      </li>
-                    
+      
                       <li class="nav-item" style="padding-right:20px">
                         <a href="{{url('cart')}}" class="nav-link waves-effect">
                           <i class="fas fa-shopping-cart"></i>
@@ -85,12 +84,17 @@
       </div>
       <div class="row">
           <div class="col-md-12 py-2 bg-info shadow">
+            <a style="color:black" class="px-4 text-white" href="{{url('/')}}">Home
+              <span class="sr-only">(current)</span>
+            </a>
            @php
            $group = App\Models\Groups::where('status', '!=','2')->get();
            @endphp
            @foreach ($group as $group_nav_item)
                 <a href="{{url('collection/'. $group_nav_item->url) }}" class="px-4 text-white">{{ $group_nav_item->name }}</a>
            @endforeach
+            <a style="color:black" class="px-4 text-white" href="{{url('collections')}}" >Collections</a>
+            <a style="color:black" class="px-4 text-white" href="{{url('collections')}}" >All Products</a>
            </div>
       </div>
 
