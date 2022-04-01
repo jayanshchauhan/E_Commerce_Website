@@ -18,7 +18,7 @@ class CartController extends Controller
             ->with('cart_data',$cart_data)
         ;
     }
-
+  
     public function addtocart(Request $request)
     {
 

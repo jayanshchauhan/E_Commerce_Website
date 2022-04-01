@@ -8,11 +8,18 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use App\User;
 use App\Models\Product;
+use App\Models\Order;
 
 class UserController extends Controller
 {
     public function myprofile(){
         return view('frontend.user.profile');
+    }
+
+    public function myorder($id){
+        $order = Order::where('user_id','=',$id)->get();
+        return view('frontend.user.order')
+        ->with('order',$order);
     }
 
     public function profileupdate(Request $request){

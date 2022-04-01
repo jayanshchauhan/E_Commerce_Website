@@ -60,7 +60,11 @@
                                   <a style="color:black" class="dropdown-item" href="{{url('my-profile')}}">
                                     My Profile
                                   </a>
-              
+
+                                  <a style="color:black" class="dropdown-item" href="{{url('my-order/'.Auth::user()->id)}}">
+                                    Order History
+                                  </a>
+                
                                   <a style="color:black" class="dropdown-item" href="{{ route('logout') }}"
                                       onclick="event.preventDefault();
                                               document.getElementById('logout-form').submit();">

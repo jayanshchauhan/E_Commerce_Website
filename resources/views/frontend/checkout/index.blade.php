@@ -21,6 +21,7 @@ Checkout
         <div class="row">
             <div class="col-md-7">
                 <form action="{{url('place-order')}}" method="POST">
+                    {{ csrf_field() }}
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
