@@ -13,7 +13,7 @@
                         </div>
                         <div class="card-body">
                             @foreach ($groups as $item)
-                                <a href="{{ url('collections/'.$item->url) }}" class="btn btn-info px-3 mx-3">
+                                <a href="{{ url('collection/'.$item->url) }}" class="btn btn-info px-3 mx-3">
                                    {{ $item->name }}
                                 </a>
                             @endforeach
