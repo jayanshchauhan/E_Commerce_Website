@@ -54,7 +54,7 @@ class CartController extends Controller
         }
         else
         {
-            $products = Product::find($prod_id);
+            $products = Product::editmodel($prod_id);
             $prod_name = $products->name;
             $prod_image = $products->image;
             $priceval = $products->offer_price;

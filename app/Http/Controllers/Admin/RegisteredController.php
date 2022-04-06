@@ -9,32 +9,28 @@ use App\User;
 class RegisteredController extends Controller
 {
     public function index(){
-    //      $users = User::paginate(3);
-        $users = User::where('status','!=','1')->paginate(3);
+    
+        $users = User::indexmodel();
         return view('admin.users.index')->with('users',$users);
     }
 
     public function edit($id){
-        $user_roles=User::find($id);
+        $user_roles= User::editmodel($id);
         return view('admin.users.edit')->with('user_roles',$user_roles);
     }
 
     public function updaterole(Request $request,$id){
-        
-        $user=User::find($id);
-        $user->name = $request->input('name');
-        $user->role_as = $request->input('roles');
-        $user->isban = $request->input('isban');
-        $user->update();
-
+    
+        $name=$request->input('name');
+        $roles=$request->input('roles');
+        $isban=$request->input('isban');
+        User::updatemodel($request,$id,$name,$roles,$isban);
         return redirect()->back()->with('status','Action is updated');
-
     }
 
     public function delete($id){
-        $user = User::find($id);
-        $user->status='1';
-        $user->update();
+
+        User::deletemodel($id);
         return redirect()->back()->with('status','Category Deleted Successfully.');
     }
 }
