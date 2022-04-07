@@ -44,7 +44,7 @@
                         </span>
                         </a>
                       </li>
-              
+               
                       <!-- Authentication Links -->
                       @if (Auth::guest())
                               <li class="nav-item"><a style="color:black" class="nav-link" href="{{ route('login') }}">Login</a></li>
