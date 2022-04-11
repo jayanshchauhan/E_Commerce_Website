@@ -1,5 +1,7 @@
 @extends('layouts.frontend')
-
+@section('title')
+Register
+@endsection
 @section('content')
 <section style="padding-top: 84px">
 
