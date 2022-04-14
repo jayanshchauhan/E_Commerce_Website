@@ -47,6 +47,8 @@ Route::group(['middleware'=>['auth','isuser']],function(){
     Route::get('checkout','Frontend\CheckoutController@index');
     Route::post('place-order','Frontend\CheckoutController@store');
 
+    Route::post('/my-profile-updatee', 'Frontend\UserController@profileupdate');
+
 });
 
 Route::group(['middleware'=>['auth','isadmin']],function(){

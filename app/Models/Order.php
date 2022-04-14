@@ -27,7 +27,7 @@ class Order extends Model
         return Order::where('user_id','=',$id)->get();
     }
 
-    public static function profileupdatemodel($user_id,$name,$lname,$hasFileimage,$image,$address,$city,$state,$pincode,$phoneno){
+    public static function profileupdatemodel($name,$lname,$hasFileimage,$image,$address,$city,$state,$pincode,$phoneno){
         $user_id=Auth::user()->id;
         $user = User::findOrFail($user_id);
         $user->name = $name;

@@ -18,7 +18,7 @@
                     </div>
                 @endif
                     <div class="card-body">
-                        <form action="{{url('my-profile-update')}}" method="POST" enctype="multipart/form-data">
+                        <form action="{{url('my-profile-updatee')}}" method="POST" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="row">
                                 <div class="col-md-4">

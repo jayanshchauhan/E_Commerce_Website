@@ -36,7 +36,7 @@ class UserController extends Controller
         $pincode = $request->input('pincode');
         $phoneno = $request->input('phoneno');
 
-        Order::profileupdatemodel($user_id,$name,$lname,$hasFileimage,$image,$address,$city,$state,$pincode,$phoneno);
+        Order::profileupdatemodel($name,$lname,$hasFileimage,$image,$address,$city,$state,$pincode,$phoneno);
         return redirect()->back()->with('status','Profile Updated');
     }
 
