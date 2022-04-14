@@ -40,7 +40,7 @@
                                     <div class="row">
                                         <div class="col-md-2 col-3">
                                             <input type="hidden" class="product_id" value="{{$products->id}}" />
-                                            <input type="number" class="qty-input form-control" value="1" min="1" max="100"/>
+                                            <input type="number" class="qty-input form-control" value="1" min="1" max="{{$products->quantity}}"/>
                                         </div>
                                         <div class="col-md-6 col-6">
                                             <button type="button" class="add-to-cart-btn btn btn-danger m-0 py-2 px-3">Add to Cart</button>
