@@ -42,13 +42,11 @@ Route::group(['middleware'=>['auth','isuser']],function(){
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/my-profile', 'Frontend\UserController@myprofile');
     Route::get('/my-order/{id}', 'Frontend\UserController@myorder');
-    Route::post('/my-profile-update', 'Frontend\UserController@profileupdate');
+    Route::post('/my-profile-updatee', 'Frontend\UserController@profileupdate');
 
     Route::get('checkout','Frontend\CheckoutController@index');
     Route::post('place-order','Frontend\CheckoutController@store');
-
-    Route::post('/my-profile-updatee', 'Frontend\UserController@profileupdate');
-
+    
 });
 
 Route::group(['middleware'=>['auth','isadmin']],function(){

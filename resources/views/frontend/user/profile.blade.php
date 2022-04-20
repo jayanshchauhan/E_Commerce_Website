@@ -9,8 +9,47 @@
   <section class="py-5">
     <div class="container">
         <div class="row">
-           
-            <div class="col-md-12" style="padding-top: 70px">
+            @if ($errors->has('name'))
+            <span class="help-block">
+                <strong> {{ $errors->first('name') }}</strong>
+            </span>
+            @endif
+            @if ($errors->has('lname'))
+            <span class="help-block">
+                <strong> {{ $errors->first('lname') }}</strong>
+            </span>
+            @endif
+            @if ($errors->has('address'))
+            <span class="help-block">
+                <strong> {{ $errors->first('address') }}</strong>
+            </span>
+            @endif
+            @if ($errors->has('city'))
+            <span class="help-block">
+                <strong> {{ $errors->first('city') }}</strong>
+            </span>
+            @endif
+            @if ($errors->has('pincode'))
+            <span class="help-block">
+                <strong> {{ $errors->first('pincode') }}</strong>
+            </span>
+            @endif
+            @if ($errors->has('phoneno'))
+            <span class="help-block">
+                <strong> {{ $errors->first('phoneno') }}</strong>
+            </span>
+            @endif
+            @if ($errors->has('state'))
+            <span class="help-block">
+                <strong> {{ $errors->first('state') }}</strong>
+            </span>
+            @endif
+            @if ($errors->has('image'))
+            <span class="help-block">
+                <strong> {{ $errors->first('image') }}</strong>
+            </span>
+            @endif
+            <div class="col-md-12" >
                 <div class="card">
                     @if (session('status'))
                     <div class="alert alert-success">

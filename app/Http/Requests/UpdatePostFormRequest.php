@@ -13,7 +13,7 @@ class UpdatePostFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,14 +25,13 @@ class UpdatePostFormRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'url' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
+            'lname' => 'required|string|max:255',         
+            'address' => 'required|string|max:255',
             'city' => 'required|string|max:255',
             'state' => 'required|string|max:255',
-            'address' => 'required|string|max:255',
+            'pincode' => 'required|regex:/[0-9]{6}/',
             'phoneno' => 'required|regex:/[0-9]{10}/',
-            'pincode' => 'required|regex:/[0-9]{10}/',
-            'email' => 'required|string|email|max:255',
+           
         ];
     }
 }

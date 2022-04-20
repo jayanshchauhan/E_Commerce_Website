@@ -33,8 +33,8 @@ class UserController extends Controller
        }
     }
 
-    public function profileupdate(Request $request){
-       
+    public function profileupdate(UpdatePostFormRequest $request){
+        
        try{ 
            $name = $request->input('name');
         $lname = $request->input('lname');
