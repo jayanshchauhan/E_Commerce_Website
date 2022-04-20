@@ -8,7 +8,7 @@ use App\Models\Groups;
 use App\Models\Category;
 use Illuminate\Support\Facades\File;
 use App\Http\Requests\UpdatePostFormRequest;
- 
+  
 class CategoryController extends Controller
 {
     public function index(){
@@ -35,16 +35,17 @@ class CategoryController extends Controller
     public function store(Request $request){
   
         try{
-            $group_id = $request->input('group_id');
-        $url = $request->input('url');
-        $name = $request->input('name');
-        $description = $request->input('description');
+            $data=[];
+            $data['group_id'] = $request->input('group_id');
+        $data['url'] = $request->input('url');
+        $data['name'] = $request->input('name');
+        $data['description'] = $request->input('description');
 
         $hasfileimage = $request->hasFile('image');    
         $image=$request->file('image');      
-        $status = $request->input('status');
+        $data['status'] = $request->input('status');
      
-        Category::storemodel($group_id,$url,$name,$description,$hasfileimage,$image,$status);
+        Category::storemodel($data,$hasfileimage,$image);
         return redirect()->back()->with('status','Category added Successfully.');
         }
         catch (\Exception $exception) {
@@ -68,16 +69,17 @@ class CategoryController extends Controller
     public function update(Request $request,$id){
 
         try{
-            $group_id = $request->input('group_id');
-        $url = $request->input('url');
-        $name = $request->input('name');
-        $description = $request->input('description');
+            $data=[];
+            $data['group_id'] = $request->input('group_id');
+        $data['url'] = $request->input('url');
+        $data['name'] = $request->input('name');
+        $data['description'] = $request->input('description');
 
         $hasfileimage = $request->hasFile('image');    
         $image=$request->file('image');      
-        $status = $request->input('status');
+        $data['status'] = $request->input('status');
 
-        Category::updatemodel($id,$group_id,$url,$name,$description,$hasfileimage,$image,$status);
+        Category::updatemodel($id,$data,$hasfileimage,$image);
         return redirect()->back()->with('status','Category Updated Successfully.');
        }
        catch (\Exception $exception) {

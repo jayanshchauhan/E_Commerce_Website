@@ -46,16 +46,12 @@ class Product extends Model
         return Product::find($id);
     }
 
-    public static function storemodel($name,$sub_category_id,$url,$small_description,$hasfileprod_image,$prod_image,
-    $original_price,$offer_price,$quantity,$priority,$p_highlight_heading,$p_highlights,$p_description_heading,
-    $p_description,$p_details_heading,$p_details,$new_arrival,$featured_products,$popular_products,$offers_products,$status){
+    public static function storemodel($data,$hasfileprod_image,$prod_image){
        
         $products = new Product();
-        $products->name= $name;
-        $products->sub_category_id = $sub_category_id;
-        $products->url = $url;
-        $products->small_description = $small_description;
-                        
+        foreach($data as $attr => $value) {    
+            $products->{$attr} = $value;        
+        }
         if($hasfileprod_image)
         {
             $image_file=$prod_image; 
@@ -63,38 +59,19 @@ class Product extends Model
             $img_filename = time(). '.'.$img_extension;
             $image_file->move('uploads/products/', $img_filename);
             $products->image = $img_filename;
-        }              
-                                            
-        $products->original_price = $original_price;
-        $products->offer_price = $offer_price;
-        $products->quantity = $quantity;
-        $products->priority = $priority;
-        $products->p_highlight_heading = $p_highlight_heading;
-        $products->p_highlights = $p_highlights;
-        $products->p_description_heading = $p_description_heading;
-        $products->P_description = $p_description;
-        $products->p_det_heading = $p_details_heading;
-        $products->p_details = $p_details;
-                                    
-        $products->new_arrival_products = $new_arrival == true ? '1':'0';
-        $products->featured_products = $featured_products == true ? '1':'0';
-        $products->popular_products = $popular_products == true ? '1':'0';
-        $products->offers_products = $offers_products == true ? '1':'0';
-        $products->status = $status == true ? '1':'0';
-        
+        }       
         $products->save();
     }
 
-    public static function updatemodel($id,$name,$sub_category_id,$url,$small_description,$hasfileprod_image,$prod_image,
-    $original_price,$offer_price,$quantity,$priority,$p_highlight_heading,$p_highlights,$p_description_heading,
-    $p_description,$p_details_heading,$p_details,$new_arrival,$featured_products,$popular_products,$offers_products,$status){
+    public static function updatemodel($id,$data,$hasfileprod_image,$prod_image){
    
         $products = Product::find($id);
-        $products->name= $name;
-        $products->sub_category_id = $sub_category_id;
-        $products->url = $url;
-        $products->small_description = $small_description;
-                        
+        if (empty($products)) {
+            return null;
+          }
+          foreach($data as $attr => $value) {    
+              $products->{$attr} = $value;        
+          }        
         if($hasfileprod_image)
         {
             $image_file=$prod_image; 
@@ -102,27 +79,8 @@ class Product extends Model
             $img_filename = time(). '.'.$img_extension;
             $image_file->move('uploads/products/', $img_filename);
             $products->image = $img_filename;
-        }              
-                                            
-        $products->original_price = $original_price;
-        $products->offer_price = $offer_price;
-        $products->quantity = $quantity;
-        $products->priority = $priority;
-        $products->p_highlight_heading = $p_highlight_heading;
-        $products->p_highlights = $p_highlights;
-        $products->p_description_heading = $p_description_heading;
-        $products->P_description = $p_description;
-        $products->p_det_heading = $p_details_heading;
-        $products->p_details = $p_details;
-                                    
-        $products->new_arrival_products = $new_arrival == true ? '1':'0';
-        $products->featured_products = $featured_products == true ? '1':'0';
-        $products->popular_products = $popular_products == true ? '1':'0';
-        $products->offers_products = $offers_products == true ? '1':'0';
-        $products->status = $status == true ? '1':'0';
-
+        }             
         $products->update();
-
     }
 
     public static function deletemodel($id){

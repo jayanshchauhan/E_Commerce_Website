@@ -36,11 +36,15 @@ class User extends Authenticatable
         return User::find($id);
     }
 
-    public static function updatemodel($id,$name,$roles,$isban){
+    public static function updatemodel($id,$data){
         $user=User::find($id);
-        $user->name = $name;
-        $user->role_as = $roles;
-        $user->isban = $isban;
+        if (empty($user)) {
+            return null;
+          }
+
+          foreach($data as $attr => $value) {    
+              $user->{$attr} = $value;        
+        }
         $user->update();
     }
 

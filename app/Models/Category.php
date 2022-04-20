@@ -29,13 +29,11 @@ class Category extends Model
         return Category::find($id);
     }
 
-    public static function storemodel($group_id,$url,$name,$description,$hasfileimage,$image,$status){
+    public static function storemodel($data,$hasfileimage,$image){
         $category = new Category();
-        $category->group_id = $group_id;
-        $category->url = $url;
-        $category->name = $name;
-        $category->description = $description;
-
+        foreach($data as $attr => $value) {    
+            $category->{$attr} = $value;        
+        }
         if($hasfileimage){
             $destination='uploads/category/'.$category->image;
             if(File::exists($destination)){
@@ -47,18 +45,19 @@ class Category extends Model
             $file->move('uploads/category/',$filename);
             $category->image=$filename;
         }
-
-        $category->status = $status==true?'1':'0';
         $category->save();
     }
 
-    public static function updatemodel($id,$group_id,$url,$name,$description,$hasfileimage,$image,$status){
+    public static function updatemodel($id,$data,$hasfileimage,$image){
         $category = Category::find($id);
-        $category->group_id = $group_id;
-        $category->url = $url;
-        $category->name = $name;
-        $category->description = $description;
 
+        if (empty($category)) {
+            return null;
+          }
+
+          foreach($data as $attr => $value) {    
+              $category->{$attr} = $value;        
+          }
         if($hasfileimage){
             $destination='uploads/category/'.$category->image;
             if(File::exists($destination)){
@@ -70,10 +69,7 @@ class Category extends Model
             $file->move('uploads/category/',$filename);
             $category->image=$filename;
         }
-
-        $category->status = $status==true?'1':'0';
         $category->update();
-   
     }
 
     public static function deletemodel($id){

@@ -42,18 +42,19 @@ class SubCategoryController extends Controller
     public function store(Request $request){
 
        try{
-            $category_id =  $request->input('category_id');
-        $url = $request->input ('url');
-        $name = $request->input ('name');
-        $description = $request->input('description');
+           $data=[];
+            $data['category_id'] =  $request->input('category_id');
+        $data['url'] = $request->input ('url');
+        $data['name'] = $request->input ('name');
+        $data['description'] = $request->input('description');
         $hasfileimage = $request->hasfile('image');
 
         $image = $request->file('image');
                
-        $priority = $request->input('priority');
-        $status = $request->input('status');
+        $data['priority'] = $request->input('priority');
+        $data['status'] = $request->input('status');
         
-        Subcategory::storemodel($category_id,$url,$name,$description,$hasfileimage,$image,$priority,$status);                       
+        Subcategory::storemodel($data,$hasfileimage,$image);                       
         return redirect()->back()->with('status','Subcategory Saved Successfully');
        }
        catch (\Exception $exception) {
@@ -64,18 +65,19 @@ class SubCategoryController extends Controller
     public function update(Request $request,$id){
         
        try{
-            $category_id =  $request->input('category_id');
-        $url = $request->input ('url');
-        $name = $request->input ('name');
-        $description = $request->input('description');
+            $data=[];
+            $data['category_id'] =  $request->input('category_id');
+        $data['url'] = $request->input ('url');
+        $data['name'] = $request->input ('name');
+        $data['description'] = $request->input('description');
         $hasfileimage = $request->hasfile('image');
 
         $image = $request->file('image');
-               
-        $priority = $request->input('priority');
-        $status = $request->input('status');
+            
+        $data['priority'] = $request->input('priority');
+        $data['status'] = $request->input('status');
         
-        Subcategory::updatemodel($id,$category_id,$url,$name,$description,$hasfileimage,$image,$priority,$status);
+        Subcategory::updatemodel($id,$data,$hasfileimage,$image);
                                 
         return redirect('sub-category')->with('status','Subcategory Updated Successfully');
        }

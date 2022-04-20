@@ -16,15 +16,10 @@ class Groups extends Model
         return Groups::where('status','0')->get();
     }
 
-    public static function storemodel($name,$url,$descrip,$status){
+    public static function storemodel($data){
         $group=new Groups(); 
-        $group->name = $name;
-        $group->url = $url;
-        $group->descrip=$descrip;
-        if($status == true){
-        $group->status = "1";
-        }else{
-        $group->status = "0";
+        foreach($data as $attr => $value) {    
+            $group->{$attr} = $value;        
         }
         $group->save();
     }
@@ -33,12 +28,16 @@ class Groups extends Model
         return Groups::find($id);
     }
 
-    public static function updatemodel($id,$name,$url,$descrip,$status){
+    public static function updatemodel($id,$data){
         $group= Groups::find($id);
-        $group->name = $name;
-        $group->url = $url;
-        $group->descrip=$descrip;
-        $group->status=$status==true?'1':'0';
+
+        if (empty($group)) {
+            return null;
+          }
+
+          foreach($data as $attr => $value) {    
+              $group->{$attr} = $value;        
+          }
         $group->update();
     }
 

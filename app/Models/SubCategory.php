@@ -28,13 +28,11 @@ class SubCategory extends Model
         return SubCategory::find($id);
     }
 
-    public static function storemodel($category_id,$url,$name,$description,$hasfileimage,$image,$priority,$status){
+    public static function storemodel($data){
         $subcategory=new Subcategory();
-        $subcategory->category_id =  $category_id;
-        $subcategory->url = $url;
-        $subcategory->name = $name;
-        $subcategory->description = $description;
-
+        foreach($data as $attr => $value) {    
+            $subcategory->{$attr} = $value;        
+        }
         if($hasfileimage)
         {
             $image_file=$image;
@@ -43,17 +41,17 @@ class SubCategory extends Model
             $image_file->move('uploads/subcategory', $img_filename);
             $subcategory->image = $img_filename;
         }        
-        $subcategory->priority = $priority;
-        $subcategory->status = $status==true ?'1':'0';
         $subcategory->save();
     }
 
-    public static function updatemodel($id,$category_id,$url,$name,$description,$hasfileimage,$image,$priority,$status){
+    public static function updatemodel($id,$data,$hasfileimage,$image){
         $subcategory = SubCategory::find($id);
-        $subcategory->category_id =  $category_id;
-        $subcategory->url = $url;
-        $subcategory->name = $name;
-        $subcategory->description = $description;
+        if (empty($subcategory)) {
+            return null;
+          }
+        foreach($data as $attr => $value) {    
+            $subcategory->{$attr} = $value;        
+        }
 
         if($hasfileimage)
         {
@@ -67,9 +65,6 @@ class SubCategory extends Model
             $image_file->move('uploads/subcategory', $img_filename);
             $subcategory->image = $img_filename;
         }  
-
-        $subcategory->priority =$priority;
-        $subcategory->status = $status==true ?'1':'0';
         $subcategory->update();
     }
 

@@ -32,15 +32,16 @@ class GroupController extends Controller
     public function store(Request $request){
         
         try{
-            $name = $request->input('name');
-        $url = $request->input('url');
-        $descrip=$request->input('descrip');
+            $data=[];
+            $data['name'] = $request->input('name');
+        $data['url'] = $request->input('url');
+        $data['descrip']=$request->input('descrip');
         if($request->input('status') == true){
-            $status = true;
+            $data['status'] = true;
         }else{
-            $status = false;
+            $data['status'] = false;
         }
-        Groups::storemodel($name,$url,$descrip,$status);
+        Groups::storemodel($data);
         return redirect()->back()->with('status', 'Group Data Added Successfully');
        }
        catch (\Exception $exception) {
@@ -63,11 +64,12 @@ class GroupController extends Controller
     public function update(Request $request,$id){
 
         try{
-            $name = $request->input('name');
-        $url = $request->input('url');
-        $descrip=$request->input('descrip');
-        $status=$request->input('status')==true?'1':'0';
-        Groups::updatemodel($id,$name,$url,$descip,$status);
+            $data=[];
+            $data['name'] = $request->input('name');
+        $data['url'] = $request->input('url');
+        $data['descrip']=$request->input('descrip');
+        $data['status']=$request->input('status')==true?'1':'0';
+        Groups::updatemodel($id,$data);
 
         return redirect()->back()->with('status', 'Group Data Updated Successfully');
        }

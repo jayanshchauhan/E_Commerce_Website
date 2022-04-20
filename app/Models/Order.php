@@ -27,11 +27,17 @@ class Order extends Model
         return Order::where('user_id','=',$id)->get();
     }
 
-    public static function profileupdatemodel($name,$lname,$hasFileimage,$image,$address,$city,$state,$pincode,$phoneno){
+    public static function profileupdatemodel($data,$hasFileimage,$image){
+
         $user_id=Auth::user()->id;
-        $user = User::findOrFail($user_id);
-        $user->name = $name;
-        $user->lname = $lname;
+        $user = User::find($user_id);
+        if (empty($user)) {
+            return null;
+          }
+
+          foreach($data as $attr => $value) {    
+              $user->{$attr} = $value;        
+          }
 
         if($hasFileimage){
             $destination='uploads/profile/'.$user->image;
@@ -44,12 +50,6 @@ class Order extends Model
             $file->move('uploads/profile/',$filename);
             $user->image=$filename;
         }
-
-        $user->address = $address;
-        $user->city = $city;
-        $user->state = $state;
-        $user->pincode = $pincode;
-        $user->phoneno = $phoneno;
 
         $user->update();
     }

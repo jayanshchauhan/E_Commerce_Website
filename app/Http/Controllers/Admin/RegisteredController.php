@@ -33,10 +33,11 @@ class RegisteredController extends Controller
     public function updaterole(Request $request,$id){
     
         try{
-            $name=$request->input('name');
-        $roles=$request->input('roles');
-        $isban=$request->input('isban');
-        User::updatemodel($request,$id,$name,$roles,$isban);
+            $data=[];
+            $data['name']=$request->input('name');
+        $data['roles']=$request->input('roles');
+        $data['isban']=$request->input('isban');
+        User::updatemodel($data);
         return redirect()->back()->with('status','Action is updated');
        }
        catch (\Exception $exception) {
