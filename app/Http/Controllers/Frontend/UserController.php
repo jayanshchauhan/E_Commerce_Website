@@ -9,22 +9,34 @@ use Illuminate\Support\Facades\File;
 use App\User;
 use App\Models\Product;
 use App\Models\Order;
+use App\Http\Requests\UpdatePostFormRequest;
   
 class UserController extends Controller
 {
     public function myprofile(){
-        return view('frontend.user.profile');
+        try{
+            return view('frontend.user.profile');
+        }
+        catch (\Exception $exception) {
+            return view('errors.error_show');
+           }
     }
 
     public function myorder($id){
-        $order = Order::myordermodel($id);
+       try{
+           $order = Order::myordermodel($id);
         return view('frontend.user.order')
         ->with('order',$order);
+       }
+       catch (\Exception $exception) {
+        return view('errors.error_show');
+       }
     }
 
     public function profileupdate(Request $request){
        
-        $name = $request->input('name');
+       try{ 
+           $name = $request->input('name');
         $lname = $request->input('lname');
 
         $hasFileimage = $request->hasFile('image');    
@@ -38,10 +50,15 @@ class UserController extends Controller
 
         Order::profileupdatemodel($name,$lname,$hasFileimage,$image,$address,$city,$state,$pincode,$phoneno);
         return redirect()->back()->with('status','Profile Updated');
+        }
+        catch (\Exception $exception) {
+            return view('errors.error_show');
+           }
     }
 
     public function SearchautoComplete(Request $request){
-        $query = $request->get('term','');
+       try{
+           $query = $request->get('term','');
         $products = Product::searchautocomplete($query);
         $data = [];
         foreach ($products as $items) {
@@ -58,10 +75,15 @@ class UserController extends Controller
         {
             return ['value'=>'No Result Found','id'=>''];
         }
+      }
+      catch (\Exception $exception) {
+        return view('errors.error_show');
+       }
     }
 
     public function result(Request $request){
-        $searchingdata = $request->input('search_product');
+       try{
+           $searchingdata = $request->input('search_product');
         $products = Product::searchautoresult($searchingdata);
             if($products)
             {
@@ -80,6 +102,10 @@ class UserController extends Controller
             else{
                 return redirect('/')->with('status', 'Product Not Available');
             }
+        }
+        catch (\Exception $exception) {
+            return view('errors.error_show');
+           }
     }
 
 }

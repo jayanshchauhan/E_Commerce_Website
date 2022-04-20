@@ -6,23 +6,29 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cookie;
 use App\Models\Product;
+use App\Http\Requests\UpdatePostFormRequest;
 
 class CartController extends Controller
 {
 
     public function index()
     {
-        $cookie_data = stripslashes(Cookie::get('shopping_cart'));
+        try{
+            $cookie_data = stripslashes(Cookie::get('shopping_cart'));
         $cart_data = json_decode($cookie_data, true);
           return view('frontend.cart.index')
-            ->with('cart_data',$cart_data)
-        ;
+            ->with('cart_data',$cart_data);
+        }
+        catch (\Exception $exception) {
+            return view('errors.error_show');
+           }
     }
   
     public function addtocart(Request $request)
     {
 
-        $prod_id = $request->input('product_id');
+        try{
+            $prod_id = $request->input('product_id');
         $quantity = $request->input('quantity');
 
         if(Cookie::get('shopping_cart'))
@@ -76,11 +82,16 @@ class CartController extends Controller
                 return response()->json(['status'=>'"'.$prod_name.'" Added to Cart']);
             }
         }
+      }
+      catch (\Exception $exception) {
+        return view('errors.error_show');
+       }
     }
 
     public function cartloadbyajax()
     {
-        if(Cookie::get('shopping_cart'))
+        try{
+            if(Cookie::get('shopping_cart'))
         {
             $cookie_data = stripslashes(Cookie::get('shopping_cart'));
             $cart_data = json_decode($cookie_data, true);
@@ -95,11 +106,16 @@ class CartController extends Controller
             echo json_encode(array('totalcart' => $totalcart)); die;
             return;
         }
+      }
+      catch (\Exception $exception) {
+        return view('errors.error_show');
+       }
     }
 
     public function updatetocart(Request $request)
     {
-        $prod_id = $request->input('product_id');
+        try{
+            $prod_id = $request->input('product_id');
         $quantity = $request->input('quantity');
 
         if(Cookie::get('shopping_cart'))
@@ -125,11 +141,16 @@ class CartController extends Controller
                 }
             }
         }
+      }
+      catch (\Exception $exception) {
+        return view('errors.error_show');
+       }
     }
 
     public function deletefromcart(Request $request)
     {
-        $prod_id = $request->input('product_id');
+        try{
+            $prod_id = $request->input('product_id');
 
         $cookie_data = stripslashes(Cookie::get('shopping_cart'));
         $cart_data = json_decode($cookie_data, true);
@@ -151,11 +172,20 @@ class CartController extends Controller
                 }
             }
         }
+      }
+      catch (\Exception $exception) {
+        return view('errors.error_show');
+       }
     }
 
     public function clearcart()
     {
-        Cookie::queue(Cookie::forget('shopping_cart'));
+       try{
+           Cookie::queue(Cookie::forget('shopping_cart'));
         return response()->json(['status'=>'Your Cart is Cleared']);
+      }
+      catch (\Exception $exception) {
+        return view('errors.error_show');
+       }
     }
 }

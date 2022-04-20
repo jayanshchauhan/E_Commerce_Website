@@ -6,33 +6,50 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Subcategory;
 use App\Models\Product;
+use App\Http\Requests\UpdatePostFormRequest;
  
 class ProductsController extends Controller
 {
     public function index(){
-        $products = Product::indexmodel();
-    //    $products = Product::get();
+        try{
+            $products = Product::indexmodel();
         return view('admin.collection.product.index')
         ->with('products',$products);
+        }
+        catch (\Exception $exception) {
+            return view('errors.error_show');
+        }
+        
     }
 
     public function create(){
-        $subcategory = Subcategory::indexmodel();
+        try{
+            $subcategory = Subcategory::indexmodel();
         return view('admin.collection.product.create')
         ->with('subcategory',$subcategory);
+       }
+       catch (\Exception $exception) {
+        return view('errors.error_show');
+       }
     }
 
     public function edit(Request $request,$id){
-        $subcategory = SubCategory::indexmodel();
+        try{
+            $subcategory = SubCategory::indexmodel();
         $product = Product::editmodel($id);
         return view('admin.collection.product.edit')
         ->with('subcategory',$subcategory)
         ->with('product',$product);
+       }
+       catch (\Exception $exception) {
+        return view('errors.error_show');
+       }
     }
 
     public function store(Request $request){
        
-        $name= $request->input('name');
+        try{
+            $name= $request->input('name');
         $sub_category_id = $request->input ('sub_category_id');
         $url = $request->input('url');
         $small_description = $request->input('small_description');
@@ -61,11 +78,16 @@ class ProductsController extends Controller
         $original_price,$offer_price,$quantity,$priority,$p_highlight_heading,$p_highlights,$p_description_heading,
         $p_description,$p_details_heading,$p_details,$new_arrival,$featured_products,$popular_products,$offers_products,$status);
         return redirect()->back()->with('status','Product added Successfully');
+       }
+       catch (\Exception $exception) {
+        return view('errors.error_show');
+      }
     }
 
     public function update(Request $request,$id){
  
-        $name= $request->input('name');
+        try{
+            $name= $request->input('name');
         $sub_category_id = $request->input ('sub_category_id');
         $url = $request->input('url');
         $small_description = $request->input('small_description');
@@ -94,12 +116,20 @@ class ProductsController extends Controller
         $original_price,$offer_price,$quantity,$priority,$p_highlight_heading,$p_highlights,$p_description_heading,
         $p_description,$p_details_heading,$p_details,$new_arrival,$featured_products,$popular_products,$offers_products,$status);
         return redirect()->back()->with('status','Product Updated Successfully');
+    }
+    catch (\Exception $exception) {
+        return view('errors.error_show');
+       }
 
     }
 
     public function delete($id){
-        return Product::deletemodel($id);
+        try{
+            return Product::deletemodel($id);
         return redirect()->back()->with('status','Product Deleted Successfully.');
-
+      }
+      catch (\Exception $exception) {
+        return view('errors.error_show');
+       }
     }
 }

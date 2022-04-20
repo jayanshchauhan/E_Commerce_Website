@@ -5,22 +5,34 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Groups;
+use App\Http\Requests\UpdatePostFormRequest;
 
 class GroupController extends Controller
 {
     public function index(){
-        $group = Groups::indexmodel();
+       try{
+            $group = Groups::indexmodel();
          return view('admin.collection.groups.index')->with('group', $group);
+        }
+        catch (\Exception $exception) {
+            return view('errors.error_show');
+        }
        
     }
  
     public function viewpage(){
-        return view('admin.collection.groups.create');
+        try{
+            return view('admin.collection.groups.create');
+        }
+        catch (\Exception $exception) {
+            return view('errors.error_show');
+        }
     }
 
     public function store(Request $request){
-        //Validation
-        $name = $request->input('name');
+        
+        try{
+            $name = $request->input('name');
         $url = $request->input('url');
         $descrip=$request->input('descrip');
         if($request->input('status') == true){
@@ -30,30 +42,49 @@ class GroupController extends Controller
         }
         Groups::storemodel($name,$url,$descrip,$status);
         return redirect()->back()->with('status', 'Group Data Added Successfully');
+       }
+       catch (\Exception $exception) {
+        return view('errors.error_show');
+    }
                 
     }
     public function edit($id){
 
-        $group= Groups::editmodel($id);
+        try{
+            $group= Groups::editmodel($id);
         return view('admin.collection.groups.edit')
         ->with('group',$group);
+       }
+       catch (\Exception $exception) {
+        return view('errors.error_show');
+       }
     }
 
     public function update(Request $request,$id){
 
-        $name = $request->input('name');
+        try{
+            $name = $request->input('name');
         $url = $request->input('url');
         $descrip=$request->input('descrip');
         $status=$request->input('status')==true?'1':'0';
         Groups::updatemodel($id,$name,$url,$descip,$status);
 
         return redirect()->back()->with('status', 'Group Data Updated Successfully');
+       }
+       catch (\Exception $exception) {
+        return view('errors.error_show');
+      }
     }
 
     public function delete($id){
 
-        Groups::deletemodel($id);
+       try{
+            Groups::deletemodel($id);
         return redirect()->back()->with('status', 'Group Data Deleted Successfully');
+       }
+       catch (\Exception $exception) {
+        return view('errors.error_show');
+       }
 
     }
 }

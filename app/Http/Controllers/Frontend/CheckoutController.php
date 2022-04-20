@@ -8,22 +8,29 @@ use Illuminate\Support\Facades\Cookie;
 use App\User;
 use App\Models\Order;
 use Auth;
+use App\Http\Requests\UpdatePostFormRequest;
 
 class CheckoutController extends Controller
 {
     public function index(){
-        $cookie_data = stripslashes(Cookie::get('shopping_cart'));
+        try{
+            $cookie_data = stripslashes(Cookie::get('shopping_cart'));
         $cart_data = json_decode($cookie_data, true);
         $id = Auth::id();
         $user=User::editmodel($id);
         return view('frontend.checkout.index')
         ->with('cart_data',$cart_data)
         ->with('user',$user);
+       }
+       catch (\Exception $exception) {
+        return view('errors.error_show');
+       }
     }
 
     public function store(){
 
-        $user_id = Auth::id();
+        try{
+            $user_id = Auth::id();
         $cookie_data = stripslashes(Cookie::get('shopping_cart'));
         $cart_data = json_decode($cookie_data, true);
         $items_in_cart = $cart_data;
@@ -33,5 +40,9 @@ class CheckoutController extends Controller
         Cookie::queue(Cookie::forget('shopping_cart'));
         
         return view('frontend.checkout.thank-you-page');
+      }
+      catch (\Exception $exception) {
+        return view('errors.error_show');
+       }
     }
 }
