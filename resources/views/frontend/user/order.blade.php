@@ -26,6 +26,7 @@
                                 <th>Name</th>
                                 <th>Product</th>
                                 <th>Price</th>
+                                <th>Quantity</th>
                                 <th>Payment</th>
                                 <th>Status</th>
                             </thead>
@@ -36,6 +37,7 @@
                                     <td>{{$item->user->name}}&nbsp;{{$item->user->lname}}</td>
                                     <td>{{$item->Product}}</td>
                                     <td>{{$item->Price}}</td>
+                                    <td>{{$item->Quantity}}</td>
                                     <td>{{$item->Payment}}</td>
                                     <td>{{$item->Status}}</td>
 

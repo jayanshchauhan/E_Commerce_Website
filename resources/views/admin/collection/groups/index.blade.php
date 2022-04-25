@@ -32,17 +32,17 @@
                         </thead>
                         <tbody>
                             @foreach($group as $item)
-                            <tr>
-                                <td>{{$item->id}}</td>
-                                <td>{{$item->name}}</td>
-                                <td>{{$item->descrip}}</td>
-                                <td>
-                                    <input type="checkbox" {{$item->status == '1' ? 'checked' : ' ' }} >
-                                </td>
-                                <td>
-                                    <a href="{{url('group-edit/'.$item->id)}}" class="badge btn-primary">Edit</a>
-                                    <a href="{{url('group-delete/'.$item->id)}}" class="badge btn-danger">Delete</a>
-                                </td>
+                                <tr>
+                                    <td>{{$item->id}}</td>
+                                    <td>{{$item->name}}</td>
+                                    <td>{{$item->descrip}}</td>
+                                    <td>
+                                        <input type="checkbox" {{$item->status == '1' ? 'checked' : ' ' }} >
+                                    </td>
+                                    <td>
+                                        <a href="{{url('group-edit/'.$item->id)}}" class="badge btn-primary">Edit</a>
+                                        <a href="{{url('group-delete/'.$item->id)}}" class="badge btn-danger">Delete</a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

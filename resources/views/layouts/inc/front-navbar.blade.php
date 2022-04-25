@@ -15,7 +15,7 @@
                         <a style="font-size:30px;color:black" class="navbar-brand" id="temp" href="{{ url('/') }}">JAYKART</a>
                       
                       <a class="navbar-brand waves-effect" href="{{ url('/') }}" target="_blank">
-                      <img src= {{url('images/logo.png')}} alt="Trulli" width="50" height="50">
+                      <img src= "{{url('images/logo.png')}}" alt="Trulli" width="50" height="50">
                     </a>
                     </ul>
                 
@@ -35,7 +35,7 @@
       
                       <li class="nav-item" style="padding-right:20px">
                         <a href="{{url('cart')}}" class="nav-link waves-effect">
-                          <i class="fas fa-shopping-cart"></i>
+                          <i class="fa fa-shopping-cart"></i>
                           <span class="clearfix">
                             Cart
                             <span class="basket-item-count">
@@ -98,7 +98,7 @@
                 <a href="{{url('collection/'. $group_nav_item->url) }}" class="px-4 text-white">{{ $group_nav_item->name }}</a>
            @endforeach
             <a style="color:black" class="px-4 text-white" href="{{url('collections')}}" >Collections</a>
-            <a style="color:black" class="px-4 text-white" href="{{url('collections')}}" >All Products</a>
+            <a style="color:black" class="px-4 text-white" href="{{url('allproducts')}}" >All Products</a>
            </div>
       </div>
 

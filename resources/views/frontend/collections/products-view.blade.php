@@ -55,7 +55,7 @@
                                 <div class="product-hightlights py-2 border-top">
                                     <div class="card">
                                         <div class="card-header">
-                                            <h6 class="highlight-heading mb-e font-weight-bold">{{ $products->p_highlight_heading }}</h6>
+                                            <h6 class="highlight-heading mb-0 font-weight-bold">{{ $products->p_highlight_heading }}</h6>
                                         </div>
                                         <div class="card-body">
                                             {!! $products->p_highlights !!}

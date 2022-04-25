@@ -13,9 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        Commands\PopularProducts::class
     ];
-
     /**
      * Define the application's command schedule.
      *
@@ -24,8 +23,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        // $filepath = 'C:\Laravel Projects\E_Commerce_Website\public\lara.txt';
+        $schedule->command('popularproducts:cron')
+            ->everyMinute();
+        //       ->appendOutputTo(storage_path() . '/logs/laravel.log');
     }
 
     /**
