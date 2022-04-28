@@ -56,6 +56,9 @@ class Category extends Model
      */
     public static function editmodel($id)
     {
+        if (empty($id)) {
+            return null;
+        }
         return Category::find($id);
     }
 
@@ -69,6 +72,9 @@ class Category extends Model
      */
     public static function storemodel($data, $hasfileimage, $image)
     {
+        if (empty($data)) {
+            return null;
+        }
         $category = new Category();
         foreach ($data as $attr => $value) {
             $category->{$attr} = $value;
@@ -98,11 +104,10 @@ class Category extends Model
      */
     public static function updatemodel($id, $data, $hasfileimage, $image)
     {
-        $category = Category::find($id);
-
-        if (empty($category)) {
+        if (empty($id) || empty($data)) {
             return null;
         }
+        $category = Category::find($id);
 
         foreach ($data as $attr => $value) {
             $category->{$attr} = $value;
@@ -129,6 +134,10 @@ class Category extends Model
      */
     public static function deletemodel($id)
     {
+        if (empty($id)) {
+            return null;
+        }
+
         $category = Category::find($id);
         $category->status = '2';
         $category->update();
@@ -142,6 +151,9 @@ class Category extends Model
      */
     public static function categoryviewmodelurl($cate_url)
     {
+        if (empty($cate_url)) {
+            return null;
+        }
         return Category::where('url', $cate_url)->first();
     }
 
@@ -153,6 +165,9 @@ class Category extends Model
      */
     public static function categoryviewmodelid($group_id)
     {
+        if (empty($group_id)) {
+            return null;
+        }
         return Category::where('group_id', $group_id)->where('status', '!=', '2')->where('status', '0')->get();
     }
 }

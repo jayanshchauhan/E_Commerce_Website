@@ -19,10 +19,11 @@ class RegisteredController extends Controller
 
         try {
             $users = User::indexmodel();
-            return view('admin.users.index')->with('users', $users);
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
+        return view('admin.users.index')
+            ->with('users', $users);
     }
 
     /**
@@ -33,12 +34,16 @@ class RegisteredController extends Controller
      */
     public function edit($id)
     {
+        if (empty($id)) {
+            return NULL;
+        }
         try {
             $user_roles = User::editmodel($id);
-            return view('admin.users.edit')->with('user_roles', $user_roles);
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
+        return view('admin.users.edit')
+            ->with('user_roles', $user_roles);
     }
 
     /**
@@ -50,17 +55,22 @@ class RegisteredController extends Controller
      */
     public function updaterole(Request $request, $id)
     {
+        if (empty($id)) {
+            return NULL;
+        }
+        $data = [];
+        $data['name'] = $request->input('name');
+        $data['roles'] = $request->input('roles');
+        $data['isban'] = $request->input('isban');
 
         try {
-            $data = [];
-            $data['name'] = $request->input('name');
-            $data['roles'] = $request->input('roles');
-            $data['isban'] = $request->input('isban');
             User::updatemodel($id, $data);
-            return redirect()->back()->with('status', 'Action is updated');
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
+        return redirect()
+            ->back()
+            ->with('status', 'Action is updated');
     }
 
     /**
@@ -71,12 +81,16 @@ class RegisteredController extends Controller
      */
     public function delete($id)
     {
-
+        if (empty($id)) {
+            return NULL;
+        }
         try {
             User::deletemodel($id);
-            return redirect()->back()->with('status', 'Category Deleted Successfully.');
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
+        return redirect()
+            ->back()
+            ->with('status', 'Category Deleted Successfully.');
     }
 }

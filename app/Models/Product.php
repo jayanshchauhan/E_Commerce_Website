@@ -73,6 +73,9 @@ class Product extends Model
      */
     public static function editmodel($id)
     {
+        if (empty($id)) {
+            return null;
+        }
         return Product::find($id);
     }
 
@@ -86,7 +89,9 @@ class Product extends Model
      */
     public static function storemodel($data, $hasfileprod_image, $prod_image)
     {
-
+        if (empty($data)) {
+            return null;
+        }
         $products = new Product();
         foreach ($data as $attr => $value) {
             $products->{$attr} = $value;
@@ -112,7 +117,9 @@ class Product extends Model
      */
     public static function updatemodel($id, $data, $hasfileprod_image, $prod_image)
     {
-
+        if (empty($data) || empty($id)) {
+            return null;
+        }
         $products = Product::find($id);
         if (empty($products)) {
             return null;
@@ -138,6 +145,9 @@ class Product extends Model
      */
     public static function deletemodel($id)
     {
+        if (empty($id)) {
+            return null;
+        }
         $product = Product::find($id);
         $product->status = '2';
         $product->update();
@@ -151,6 +161,9 @@ class Product extends Model
      */
     public static function searchautocomplete($query)
     {
+        if (empty($query)) {
+            return null;
+        }
         return Product::where('name', 'LIKE', '%' . $query . '%')->where('status', '0')->get();
     }
 
@@ -162,6 +175,9 @@ class Product extends Model
      */
     public static function searchautoresult($query)
     {
+        if (empty($query)) {
+            return null;
+        }
         return Product::where('name', 'LIKE', '%' . $query . '%')->where('status', '0')->first();
     }
 
@@ -173,6 +189,9 @@ class Product extends Model
      */
     public static function productviewmodelurl($prod_url)
     {
+        if (empty($prod_url)) {
+            return null;
+        }
         return Product::where('url', $prod_url)->where('status', '!=', '2')->where('status', '0')->first();
     }
 
@@ -184,6 +203,9 @@ class Product extends Model
      */
     public static function productviewmodelid($subcategory_id)
     {
+        if (empty($subcategory_id)) {
+            return null;
+        }
         return Product::where('sub_category_id', $subcategory_id)->where('status', '!=', '2')->where('status', '0')->paginate(3);
     }
 
@@ -197,6 +219,9 @@ class Product extends Model
      */
     public static function productviewmodelsort($subcategory_id, $wrt, $by)
     {
+        if (empty($subcategory_id)) {
+            return null;
+        }
         return Product::where('sub_category_id', $subcategory_id)
             ->orderBy($wrt, $by)
             ->where('status', '!=', '2')

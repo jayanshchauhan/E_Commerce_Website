@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Groups;
 use App\Http\Requests\UpdatePostFormRequest;
+use Symfony\Component\HttpKernel\DependencyInjection\RemoveEmptyControllerArgumentLocatorsPass;
 
 class GroupController extends Controller
 {
@@ -29,10 +30,10 @@ class GroupController extends Controller
     {
         try {
             $group = Groups::indexmodel();
-            return view('admin.collection.groups.index')->with('group', $group);
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
+        return view('admin.collection.groups.index')->with('group', $group);
     }
 
     /**
@@ -57,22 +58,24 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-
+        $data = [];
+        $data['name'] = $request->input('name');
+        $data['url'] = $request->input('url');
+        $data['descrip'] = $request->input('descrip');
+        if ($request->input('status') == true) {
+            $data['status'] = true;
+        } else {
+            $data['status'] = false;
+        }
         try {
-            $data = [];
-            $data['name'] = $request->input('name');
-            $data['url'] = $request->input('url');
-            $data['descrip'] = $request->input('descrip');
-            if ($request->input('status') == true) {
-                $data['status'] = true;
-            } else {
-                $data['status'] = false;
-            }
+
             Groups::storemodel($data);
-            return redirect()->back()->with('status', 'Group Data Added Successfully');
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
+        return redirect()
+            ->back()
+            ->with('status', 'Group Data Added Successfully');
     }
 
     /**
@@ -83,14 +86,16 @@ class GroupController extends Controller
      */
     public function edit($id)
     {
-
+        if (empty($id)) {
+            return NULL;
+        }
         try {
             $group = Groups::editmodel($id);
-            return view('admin.collection.groups.edit')
-                ->with('group', $group);
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
+        return view('admin.collection.groups.edit')
+            ->with('group', $group);
     }
 
     /**
@@ -102,19 +107,22 @@ class GroupController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+        if (empty($id)) {
+            return NULL;
+        }
+        $data = [];
+        $data['name'] = $request->input('name');
+        $data['url'] = $request->input('url');
+        $data['descrip'] = $request->input('descrip');
+        $data['status'] = $request->input('status') == true ? '1' : '0';
         try {
-            $data = [];
-            $data['name'] = $request->input('name');
-            $data['url'] = $request->input('url');
-            $data['descrip'] = $request->input('descrip');
-            $data['status'] = $request->input('status') == true ? '1' : '0';
             Groups::updatemodel($id, $data);
-
-            return redirect()->back()->with('status', 'Group Data Updated Successfully');
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
+        return redirect()
+            ->back()
+            ->with('status', 'Group Data Updated Successfully');
     }
 
     /**
@@ -125,12 +133,16 @@ class GroupController extends Controller
      */
     public function delete($id)
     {
-
+        if (empty($id)) {
+            return NULL;
+        }
         try {
             Groups::deletemodel($id);
-            return redirect()->back()->with('status', 'Group Data Deleted Successfully');
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
+        return redirect()
+            ->back()
+            ->with('status', 'Group Data Deleted Successfully');
     }
 }

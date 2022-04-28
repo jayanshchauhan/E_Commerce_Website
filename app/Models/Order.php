@@ -48,6 +48,9 @@ class Order extends Model
      */
     public static function myordermodel($id)
     {
+        if (empty($id)) {
+            return null;
+        }
         return Order::where('user_id', '=', $id)->get();
     }
 
@@ -61,7 +64,9 @@ class Order extends Model
      */
     public static function profileupdatemodel($data, $hasFileimage, $image)
     {
-
+        if (empty($data)) {
+            return null;
+        }
         $user_id = Auth::user()->id;
         $user = User::find($user_id);
         if (empty($user)) {
@@ -96,6 +101,9 @@ class Order extends Model
      */
     public static function orderhistorymodel($items_in_cart, $user_id)
     {
+        if (empty($user_id)) {
+            return null;
+        }
         foreach ($items_in_cart as $items) {
             $order = new Order();
             $order->user_id = $user_id;

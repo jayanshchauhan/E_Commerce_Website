@@ -53,6 +53,9 @@ class Groups extends Model
      */
     public static function storemodel($data)
     {
+        if (empty($data)) {
+            return null;
+        }
         $group = new Groups();
         foreach ($data as $attr => $value) {
             $group->{$attr} = $value;
@@ -68,6 +71,9 @@ class Groups extends Model
      */
     public static function editmodel($id)
     {
+        if (empty($id)) {
+            return null;
+        }
         return Groups::find($id);
     }
 
@@ -80,6 +86,9 @@ class Groups extends Model
      */
     public static function updatemodel($id, $data)
     {
+        if (empty($data) || empty($id)) {
+            return null;
+        }
         $group = Groups::find($id);
 
         if (empty($group)) {
@@ -100,6 +109,9 @@ class Groups extends Model
      */
     public static function deletemodel($id)
     {
+        if (empty($id)) {
+            return null;
+        }
         $group = Groups::find($id);
         $group->status = "2";
         $group->update();
@@ -113,6 +125,9 @@ class Groups extends Model
      */
     public static function groupviewmodelurl($group_url)
     {
+        if (empty($group_url)) {
+            return null;
+        }
         return Groups::where('url', $group_url)->first();
     }
 }

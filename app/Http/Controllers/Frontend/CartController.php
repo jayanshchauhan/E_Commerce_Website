@@ -21,11 +21,11 @@ class CartController extends Controller
         try {
             $cookie_data = stripslashes(Cookie::get('shopping_cart'));
             $cart_data = json_decode($cookie_data, true);
-            return view('frontend.cart.index')
-                ->with('cart_data', $cart_data);
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
+        return view('frontend.cart.index')
+            ->with('cart_data', $cart_data);
     }
 
     /**
@@ -34,7 +34,7 @@ class CartController extends Controller
      * @param  mixed $request
      * @return void
      */
-    public function addtocart(Request $request)
+    public function addToCart(Request $request)
     {
 
         try {
@@ -93,7 +93,7 @@ class CartController extends Controller
      *
      * @return void
      */
-    public function cartloadbyajax()
+    public function cartloadByAjax()
     {
         try {
             if (Cookie::get('shopping_cart')) {
@@ -121,7 +121,7 @@ class CartController extends Controller
      * @param  mixed $request
      * @return void
      */
-    public function updatetocart(Request $request)
+    public function updateToCart(Request $request)
     {
         try {
             $prod_id = $request->input('product_id');
@@ -157,7 +157,7 @@ class CartController extends Controller
      * @param  mixed $request
      * @return void
      */
-    public function deletefromcart(Request $request)
+    public function deleteFromCart(Request $request)
     {
         try {
             $prod_id = $request->input('product_id');
@@ -189,7 +189,7 @@ class CartController extends Controller
      *
      * @return void
      */
-    public function clearcart()
+    public function clearCart()
     {
         try {
             Cookie::queue(Cookie::forget('shopping_cart'));

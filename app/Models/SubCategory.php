@@ -55,6 +55,9 @@ class SubCategory extends Model
      */
     public static function editmodel($id)
     {
+        if (empty($id)) {
+            return null;
+        }
         return SubCategory::find($id);
     }
 
@@ -68,6 +71,9 @@ class SubCategory extends Model
      */
     public static function storemodel($data, $hasfileimage, $image)
     {
+        if (empty($data)) {
+            return null;
+        }
         $subcategory = new Subcategory();
         foreach ($data as $attr => $value) {
             $subcategory->{$attr} = $value;
@@ -93,6 +99,9 @@ class SubCategory extends Model
      */
     public static function updatemodel($id, $data, $hasfileimage, $image)
     {
+        if (empty($data) || empty($id)) {
+            return null;
+        }
         $subcategory = SubCategory::find($id);
         if (empty($subcategory)) {
             return null;
@@ -123,6 +132,9 @@ class SubCategory extends Model
      */
     public static function deletemodel($id)
     {
+        if (empty($id)) {
+            return null;
+        }
         $subcategory = SubCategory::find($id);
         $subcategory->status = '2';
         $subcategory->update();
@@ -136,6 +148,9 @@ class SubCategory extends Model
      */
     public static function subcategorymodelurl($subcate_url)
     {
+        if (empty($subcate_url)) {
+            return null;
+        }
         return Subcategory::where('url', $subcate_url)->first();
     }
 
@@ -147,6 +162,9 @@ class SubCategory extends Model
      */
     public static function subcategorymodelid($category_id)
     {
+        if (empty($category_id)) {
+            return null;
+        }
         return Subcategory::where('category_id', $category_id)->where('status', '!=', '2')->where('status', '0')->get();
     }
 }

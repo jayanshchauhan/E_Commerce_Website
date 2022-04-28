@@ -24,17 +24,17 @@ Route::get('details/{prod_url}', 'Frontend\CollectionController@views');
 Route::get('/searchajax', 'Frontend\UserController@SearchautoComplete')->name('searchproductajax');
 Route::post('/searching', 'Frontend\UserController@result');
 
-Route::get('collection/{group_url}', 'Frontend\CollectionController@groupview');
-Route::get('collection/{group_url}/{cate_url}', 'Frontend\CollectionController@categoryview');
-Route::get('collection/{group_url}/{cate_url}/{subcate_url}', 'Frontend\CollectionController@subcategoryview');
-Route::get('collection/{group_url}/{cate_url}/{subcate_url}/{prod_url}', 'Frontend\CollectionController@productview');
+Route::get('collection/{group_url}', 'Frontend\CollectionController@groupView');
+Route::get('collection/{group_url}/{cate_url}', 'Frontend\CollectionController@categoryView');
+Route::get('collection/{group_url}/{cate_url}/{subcate_url}', 'Frontend\CollectionController@subCategoryView');
+Route::get('collection/{group_url}/{cate_url}/{subcate_url}/{prod_url}', 'Frontend\CollectionController@productView');
 
-Route::get('clear-cart', 'Frontend\CartController@clearcart');
-Route::delete('delete-from-cart', 'Frontend\CartController@deletefromcart');
-Route::post('update-to-cart', 'Frontend\CartController@updatetocart');
+Route::get('clear-cart', 'Frontend\CartController@clearCart');
+Route::delete('delete-from-cart', 'Frontend\CartController@deleteFromCart');
+Route::post('update-to-cart', 'Frontend\CartController@updateToCart');
 Route::get('/cart', 'Frontend\CartController@index');
-Route::get('/load-cart-data', 'Frontend\CartController@cartloadbyajax');
-Route::post('add-to-cart', 'Frontend\CartController@addtocart');
+Route::get('/load-cart-data', 'Frontend\CartController@cartloadByAjax');
+Route::post('add-to-cart', 'Frontend\CartController@addToCart');
 
 //For User
 

@@ -48,11 +48,11 @@ class UserController extends Controller
     {
         try {
             $order = Order::myordermodel($id);
-            return view('frontend.user.order')
-                ->with('order', $order);
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
+        return view('frontend.user.order')
+            ->with('order', $order);
     }
 
     /**
@@ -63,26 +63,24 @@ class UserController extends Controller
      */
     public function profileupdate(UpdatePostFormRequest $request)
     {
+        $data = [];
+        $data['name'] = $request->input('name');
+        $data['lname'] = $request->input('lname');
 
+        $hasFileimage = $request->hasFile('image');
+        $image = $request->file('image');
+
+        $data['address'] = $request->input('address');
+        $data['city'] = $request->input('city');
+        $data['state'] = $request->input('state');
+        $data['pincode'] = $request->input('pincode');
+        $data['phoneno'] = $request->input('phoneno');
         try {
-            $data = [];
-            $data['name'] = $request->input('name');
-            $data['lname'] = $request->input('lname');
-
-            $hasFileimage = $request->hasFile('image');
-            $image = $request->file('image');
-
-            $data['address'] = $request->input('address');
-            $data['city'] = $request->input('city');
-            $data['state'] = $request->input('state');
-            $data['pincode'] = $request->input('pincode');
-            $data['phoneno'] = $request->input('phoneno');
-
             Order::profileupdatemodel($data, $hasFileimage, $image);
-            return redirect()->back()->with('status', 'Profile Updated');
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
+        return redirect()->back()->with('status', 'Profile Updated');
     }
 
     /**
