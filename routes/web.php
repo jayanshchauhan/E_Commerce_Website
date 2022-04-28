@@ -43,7 +43,7 @@ Route::group(['middleware' => ['auth', 'isuser']], function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/my-profile', 'Frontend\UserController@myprofile');
     Route::get('/my-order/{id}', 'Frontend\UserController@myorder');
-    Route::post('/my-profile-updatee', 'Frontend\UserController@profileupdate');
+    Route::put('/my_profile_update', 'Frontend\UserController@profileupdate');
 
     Route::get('checkout', 'Frontend\CheckoutController@index');
     Route::post('place-order', 'Frontend\CheckoutController@store');
@@ -60,7 +60,7 @@ Route::group(['middleware' => ['auth', 'isadmin']], function () {
     Route::get('registered-user', 'Admin\RegisteredController@index');
     Route::get('role-edit/{id}', 'Admin\RegisteredController@edit');
     Route::put('role-update/{id}', 'Admin\RegisteredController@updaterole');
-    Route::post('/my-profile-update', 'Frontend\UserController@profileupdate');
+    Route::put('/my-profile-update', 'Frontend\UserController@profileupdate');
     Route::get('role-delete/{id}', 'Admin\RegisteredController@delete');
 
     //Groups
