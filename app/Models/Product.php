@@ -60,9 +60,9 @@ class Product extends Model
      *
      * @return void
      */
-    public static function indexmodel()
+    public static function indexModel()
     {
-        return Product::where('status', '!=', '2')->paginate(3);
+        return Product::where('status', '!=', notShow)->paginate(productPagination);
     }
 
     /**
@@ -71,10 +71,10 @@ class Product extends Model
      * @param  mixed $id
      * @return void
      */
-    public static function editmodel($id)
+    public static function editModel($id)
     {
         if (empty($id)) {
-            return null;
+            return false;
         }
         return Product::find($id);
     }
@@ -87,10 +87,10 @@ class Product extends Model
      * @param  mixed $prod_image
      * @return void
      */
-    public static function storemodel($data, $hasfileprod_image, $prod_image)
+    public static function storeModel($data, $hasfileprod_image, $prod_image)
     {
         if (empty($data)) {
-            return null;
+            return false;
         }
         $products = new Product();
         foreach ($data as $attr => $value) {
@@ -115,14 +115,14 @@ class Product extends Model
      * @param  mixed $prod_image
      * @return void
      */
-    public static function updatemodel($id, $data, $hasfileprod_image, $prod_image)
+    public static function updateModel($id, $data, $hasfileprod_image, $prod_image)
     {
         if (empty($data) || empty($id)) {
-            return null;
+            return false;
         }
         $products = Product::find($id);
         if (empty($products)) {
-            return null;
+            return false;
         }
         foreach ($data as $attr => $value) {
             $products->{$attr} = $value;
@@ -143,10 +143,10 @@ class Product extends Model
      * @param  mixed $id
      * @return void
      */
-    public static function deletemodel($id)
+    public static function deleteModel($id)
     {
         if (empty($id)) {
-            return null;
+            return false;
         }
         $product = Product::find($id);
         $product->status = '2';
@@ -159,12 +159,14 @@ class Product extends Model
      * @param  mixed $query
      * @return void
      */
-    public static function searchautocomplete($query)
+    public static function searchAutoComplete($query)
     {
         if (empty($query)) {
             return null;
         }
-        return Product::where('name', 'LIKE', '%' . $query . '%')->where('status', '0')->get();
+        return Product::where('name', 'LIKE', '%' . $query . '%')
+            ->where('status', show)
+            ->get();
     }
 
     /**
@@ -173,12 +175,14 @@ class Product extends Model
      * @param  mixed $query
      * @return void
      */
-    public static function searchautoresult($query)
+    public static function searchAutoResult($query)
     {
         if (empty($query)) {
             return null;
         }
-        return Product::where('name', 'LIKE', '%' . $query . '%')->where('status', '0')->first();
+        return Product::where('name', 'LIKE', '%' . $query . '%')
+            ->where('status', show)
+            ->first();
     }
 
     /**
@@ -187,12 +191,15 @@ class Product extends Model
      * @param  mixed $prod_url
      * @return void
      */
-    public static function productviewmodelurl($prod_url)
+    public static function productViewModelUrl($prod_url)
     {
         if (empty($prod_url)) {
             return null;
         }
-        return Product::where('url', $prod_url)->where('status', '!=', '2')->where('status', '0')->first();
+        return Product::where('url', $prod_url)
+            ->where('status', '!=', notShow)
+            ->where('status', show)
+            ->first();
     }
 
     /**
@@ -201,12 +208,15 @@ class Product extends Model
      * @param  mixed $subcategory_id
      * @return void
      */
-    public static function productviewmodelid($subcategory_id)
+    public static function productViewModelId($subcategory_id)
     {
         if (empty($subcategory_id)) {
             return null;
         }
-        return Product::where('sub_category_id', $subcategory_id)->where('status', '!=', '2')->where('status', '0')->paginate(3);
+        return Product::where('sub_category_id', $subcategory_id)
+            ->where('status', '!=', notShow)
+            ->where('status', show)
+            ->paginate(productPagination);
     }
 
     /**
@@ -217,15 +227,16 @@ class Product extends Model
      * @param  mixed $by
      * @return void
      */
-    public static function productviewmodelsort($subcategory_id, $wrt, $by)
+    public static function productViewModelSort($subcategory_id, $wrt, $by)
     {
         if (empty($subcategory_id)) {
             return null;
         }
         return Product::where('sub_category_id', $subcategory_id)
             ->orderBy($wrt, $by)
-            ->where('status', '!=', '2')
-            ->where('status', '0')->paginate(3);
+            ->where('status', '!=', notShow)
+            ->where('status', show)
+            ->paginate(productPagination);
     }
 
     /**
@@ -235,9 +246,10 @@ class Product extends Model
      * @param  mixed $by
      * @return void
      */
-    public static function productviewmodelsortwithoutsubid($wrt, $by)
+    public static function productViewModelSortWithoutSubid($wrt, $by)
     {
-        return Product::orderBy($wrt, $by)->get();
+        return Product::orderBy($wrt, $by)
+            ->get();
     }
 
     /**
@@ -249,7 +261,7 @@ class Product extends Model
      * @param  mixed $pagee
      * @return void
      */
-    public static function showbyapimodel($sortt, $idd, $namee, $pagee)
+    public static function showByApiModel($sortt, $idd, $namee, $pagee)
     {
         $query = Product::query();
 

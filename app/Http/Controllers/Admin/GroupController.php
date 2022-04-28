@@ -29,11 +29,12 @@ class GroupController extends Controller
     public function index()
     {
         try {
-            $group = Groups::indexmodel();
+            $group = Groups::indexModel();
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
-        return view('admin.collection.groups.index')->with('group', $group);
+        return view('admin.collection.groups.index')
+            ->with('group', $group);
     }
 
     /**
@@ -43,11 +44,7 @@ class GroupController extends Controller
      */
     public function viewpage()
     {
-        try {
-            return view('admin.collection.groups.create');
-        } catch (\Exception $exception) {
-            return view('errors.error_show');
-        }
+        return view('admin.collection.groups.create');
     }
 
     /**
@@ -62,14 +59,10 @@ class GroupController extends Controller
         $data['name'] = $request->input('name');
         $data['url'] = $request->input('url');
         $data['descrip'] = $request->input('descrip');
-        if ($request->input('status') == true) {
-            $data['status'] = true;
-        } else {
-            $data['status'] = false;
-        }
+        $data['status'] = $request->input('status') == true ? '1' : '0';
         try {
 
-            Groups::storemodel($data);
+            Groups::storeModel($data);
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
@@ -87,10 +80,10 @@ class GroupController extends Controller
     public function edit($id)
     {
         if (empty($id)) {
-            return NULL;
+            return view('errors.error_show');
         }
         try {
-            $group = Groups::editmodel($id);
+            $group = Groups::editModel($id);
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
@@ -108,7 +101,7 @@ class GroupController extends Controller
     public function update(Request $request, $id)
     {
         if (empty($id)) {
-            return NULL;
+            return view('errors.error_show');
         }
         $data = [];
         $data['name'] = $request->input('name');
@@ -116,7 +109,7 @@ class GroupController extends Controller
         $data['descrip'] = $request->input('descrip');
         $data['status'] = $request->input('status') == true ? '1' : '0';
         try {
-            Groups::updatemodel($id, $data);
+            Groups::updateModel($id, $data);
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
@@ -134,10 +127,10 @@ class GroupController extends Controller
     public function delete($id)
     {
         if (empty($id)) {
-            return NULL;
+            return view('errors.error_show');
         }
         try {
-            Groups::deletemodel($id);
+            Groups::deleteModel($id);
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }

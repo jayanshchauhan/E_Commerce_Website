@@ -23,7 +23,7 @@ class CheckoutController extends Controller
         $cart_data = json_decode($cookie_data, true);
         $id = Auth::id();
         try {
-            $user = User::editmodel($id);
+            $user = User::editModel($id);
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
@@ -44,7 +44,7 @@ class CheckoutController extends Controller
         $cart_data = json_decode($cookie_data, true);
         $items_in_cart = $cart_data;
         try {
-            Order::orderhistorymodel($items_in_cart, $user_id);
+            Order::orderHistoryModel($items_in_cart, $user_id);
             Cookie::queue(Cookie::forget('shopping_cart'));
         } catch (\Exception $exception) {
             return view('errors.error_show');

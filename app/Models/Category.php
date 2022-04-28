@@ -43,9 +43,9 @@ class Category extends Model
      *
      * @return void
      */
-    public static function indexmodel()
+    public static function indexModel()
     {
-        return Category::where('status', '!=', '2')->paginate(11);
+        return Category::where('status', '!=', notShow)->paginate(categoryPagination);
     }
 
     /**
@@ -54,10 +54,10 @@ class Category extends Model
      * @param  mixed $id
      * @return void
      */
-    public static function editmodel($id)
+    public static function editModel($id)
     {
         if (empty($id)) {
-            return null;
+            return false;
         }
         return Category::find($id);
     }
@@ -70,10 +70,10 @@ class Category extends Model
      * @param  mixed $image
      * @return void
      */
-    public static function storemodel($data, $hasfileimage, $image)
+    public static function storeModel($data, $hasfileimage, $image)
     {
         if (empty($data)) {
-            return null;
+            return false;
         }
         $category = new Category();
         foreach ($data as $attr => $value) {
@@ -102,10 +102,10 @@ class Category extends Model
      * @param  mixed $image
      * @return void
      */
-    public static function updatemodel($id, $data, $hasfileimage, $image)
+    public static function updateModel($id, $data, $hasfileimage, $image)
     {
         if (empty($id) || empty($data)) {
-            return null;
+            return false;
         }
         $category = Category::find($id);
 
@@ -132,10 +132,10 @@ class Category extends Model
      * @param  mixed $id
      * @return void
      */
-    public static function deletemodel($id)
+    public static function deleteModel($id)
     {
         if (empty($id)) {
-            return null;
+            return false;
         }
 
         $category = Category::find($id);
@@ -149,7 +149,7 @@ class Category extends Model
      * @param  mixed $cate_url
      * @return void
      */
-    public static function categoryviewmodelurl($cate_url)
+    public static function categoryViewModelUrl($cate_url)
     {
         if (empty($cate_url)) {
             return null;
@@ -163,11 +163,13 @@ class Category extends Model
      * @param  mixed $group_id
      * @return void
      */
-    public static function categoryviewmodelid($group_id)
+    public static function categoryViewModelId($group_id)
     {
         if (empty($group_id)) {
             return null;
         }
-        return Category::where('group_id', $group_id)->where('status', '!=', '2')->where('status', '0')->get();
+        return Category::where('group_id', $group_id)
+            ->where('status', '!=', notShow)
+            ->where('status', show)->get();
     }
 }

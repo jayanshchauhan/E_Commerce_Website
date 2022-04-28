@@ -46,7 +46,7 @@ class Order extends Model
      * @param  mixed $id
      * @return void
      */
-    public static function myordermodel($id)
+    public static function myOrderModel($id)
     {
         if (empty($id)) {
             return null;
@@ -62,15 +62,15 @@ class Order extends Model
      * @param  mixed $image
      * @return void
      */
-    public static function profileupdatemodel($data, $hasFileimage, $image)
+    public static function profileUpdateModel($data, $hasFileimage, $image)
     {
         if (empty($data)) {
-            return null;
+            return false;
         }
         $user_id = Auth::user()->id;
         $user = User::find($user_id);
         if (empty($user)) {
-            return null;
+            return false;
         }
 
         foreach ($data as $attr => $value) {
@@ -99,10 +99,10 @@ class Order extends Model
      * @param  mixed $user_id
      * @return void
      */
-    public static function orderhistorymodel($items_in_cart, $user_id)
+    public static function orderHistoryModel($items_in_cart, $user_id)
     {
         if (empty($user_id)) {
-            return null;
+            return false;
         }
         foreach ($items_in_cart as $items) {
             $order = new Order();

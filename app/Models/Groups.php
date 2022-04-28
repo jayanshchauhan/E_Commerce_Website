@@ -30,9 +30,9 @@ class Groups extends Model
      *
      * @return void
      */
-    public static function indexmodel()
+    public static function indexModel()
     {
-        return Groups::where('status', '!=', '2')->get();
+        return Groups::where('status', '!=', notShow)->get();
     }
 
     /**
@@ -40,9 +40,9 @@ class Groups extends Model
      *
      * @return void
      */
-    public static function groupmodel()
+    public static function groupModel()
     {
-        return Groups::where('status', '0')->get();
+        return Groups::where('status', show)->get();
     }
 
     /**
@@ -51,10 +51,10 @@ class Groups extends Model
      * @param  mixed $data
      * @return void
      */
-    public static function storemodel($data)
+    public static function storeModel($data)
     {
         if (empty($data)) {
-            return null;
+            return false;
         }
         $group = new Groups();
         foreach ($data as $attr => $value) {
@@ -69,10 +69,10 @@ class Groups extends Model
      * @param  mixed $id
      * @return void
      */
-    public static function editmodel($id)
+    public static function editModel($id)
     {
         if (empty($id)) {
-            return null;
+            return false;
         }
         return Groups::find($id);
     }
@@ -84,15 +84,15 @@ class Groups extends Model
      * @param  mixed $data
      * @return void
      */
-    public static function updatemodel($id, $data)
+    public static function updateModel($id, $data)
     {
         if (empty($data) || empty($id)) {
-            return null;
+            return false;
         }
         $group = Groups::find($id);
 
         if (empty($group)) {
-            return null;
+            return false;
         }
 
         foreach ($data as $attr => $value) {
@@ -107,10 +107,10 @@ class Groups extends Model
      * @param  mixed $id
      * @return void
      */
-    public static function deletemodel($id)
+    public static function deleteModel($id)
     {
         if (empty($id)) {
-            return null;
+            return false;
         }
         $group = Groups::find($id);
         $group->status = "2";
@@ -123,7 +123,7 @@ class Groups extends Model
      * @param  mixed $group_url
      * @return void
      */
-    public static function groupviewmodelurl($group_url)
+    public static function groupViewModelUrl($group_url)
     {
         if (empty($group_url)) {
             return null;

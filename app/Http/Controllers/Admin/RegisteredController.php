@@ -18,7 +18,7 @@ class RegisteredController extends Controller
     {
 
         try {
-            $users = User::indexmodel();
+            $users = User::indexModel();
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
@@ -35,10 +35,10 @@ class RegisteredController extends Controller
     public function edit($id)
     {
         if (empty($id)) {
-            return NULL;
+            return view('errors.error_show');
         }
         try {
-            $user_roles = User::editmodel($id);
+            $user_roles = User::editModel($id);
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
@@ -56,7 +56,7 @@ class RegisteredController extends Controller
     public function updaterole(Request $request, $id)
     {
         if (empty($id)) {
-            return NULL;
+            return view('errors.error_show');
         }
         $data = [];
         $data['name'] = $request->input('name');
@@ -64,7 +64,7 @@ class RegisteredController extends Controller
         $data['isban'] = $request->input('isban');
 
         try {
-            User::updatemodel($id, $data);
+            User::updateModel($id, $data);
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
@@ -82,10 +82,10 @@ class RegisteredController extends Controller
     public function delete($id)
     {
         if (empty($id)) {
-            return NULL;
+            return view('errors.error_show');
         }
         try {
-            User::deletemodel($id);
+            User::deleteModel($id);
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }

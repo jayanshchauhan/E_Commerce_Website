@@ -19,7 +19,7 @@ class CategoryController extends Controller
     public function index()
     {
         try {
-            $category = Category::indexmodel();
+            $category = Category::indexModel();
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
@@ -35,7 +35,7 @@ class CategoryController extends Controller
     public function create()
     {
         try {
-            $group = Groups::indexmodel();
+            $group = Groups::indexModel();
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
@@ -62,7 +62,7 @@ class CategoryController extends Controller
         $data['status'] = $request->input('status');
 
         try {
-            Category::storemodel($data, $hasfileimage, $image);
+            Category::storeModel($data, $hasfileimage, $image);
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
@@ -81,11 +81,11 @@ class CategoryController extends Controller
     public function edit(Request $request, $id)
     {
         if (empty($id)) {
-            return NULL;
+            return view('errors.error_show');
         }
         try {
-            $group = Groups::indexmodel();
-            $category = Category::editmodel($id);
+            $group = Groups::indexModel();
+            $category = Category::editModel($id);
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
@@ -104,7 +104,7 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         if (empty($id)) {
-            return NULL;
+            return view('errors.error_show');
         }
         $data = [];
         $data['group_id'] = $request->input('group_id');
@@ -116,7 +116,7 @@ class CategoryController extends Controller
         $image = $request->file('image');
         $data['status'] = $request->input('status');
         try {
-            Category::updatemodel($id, $data, $hasfileimage, $image);
+            Category::updateModel($id, $data, $hasfileimage, $image);
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
@@ -134,10 +134,10 @@ class CategoryController extends Controller
     public function delete($id)
     {
         if (empty($id)) {
-            return NULL;
+            return view('errors.error_show');
         }
         try {
-            Category::deletemodel($id);
+            Category::deleteModel($id);
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }

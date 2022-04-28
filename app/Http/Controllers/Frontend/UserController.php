@@ -47,7 +47,7 @@ class UserController extends Controller
     public function myorder($id)
     {
         try {
-            $order = Order::myordermodel($id);
+            $order = Order::myOrderModel($id);
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
@@ -76,11 +76,13 @@ class UserController extends Controller
         $data['pincode'] = $request->input('pincode');
         $data['phoneno'] = $request->input('phoneno');
         try {
-            Order::profileupdatemodel($data, $hasFileimage, $image);
+            Order::profileUpdateModel($data, $hasFileimage, $image);
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
-        return redirect()->back()->with('status', 'Profile Updated');
+        return redirect()
+            ->back()
+            ->with('status', 'Profile Updated');
     }
 
     /**
@@ -89,11 +91,11 @@ class UserController extends Controller
      * @param  mixed $request
      * @return void
      */
-    public function SearchautoComplete(Request $request)
+    public function searchAutoComplete(Request $request)
     {
         try {
             $query = $request->get('term', '');
-            $products = Product::searchautocomplete($query);
+            $products = Product::searchAutoComplete($query);
             $data = [];
             foreach ($products as $items) {
                 $data[] = [
@@ -121,7 +123,7 @@ class UserController extends Controller
     {
         try {
             $searchingdata = $request->input('search_product');
-            $products = Product::searchautoresult($searchingdata);
+            $products = Product::searchAutoResult($searchingdata);
             if ($products) {
                 if (isset($_POST['searchbtn'])) {
                     return redirect('collection/' . $products->subcategory->category->group->url . '/' .
@@ -133,7 +135,8 @@ class UserController extends Controller
             }
             // return redirect('search/'.$products->url);
             else {
-                return redirect('/')->with('status', 'Product Not Available');
+                return redirect('/')
+                    ->with('status', 'Product Not Available');
             }
         } catch (\Exception $exception) {
             return view('errors.error_show');

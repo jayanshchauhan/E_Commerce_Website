@@ -21,7 +21,7 @@ Route::get('details/{prod_url}', 'Frontend\CollectionController@views');
 
 //Frontend
 
-Route::get('/searchajax', 'Frontend\UserController@SearchautoComplete')->name('searchproductajax');
+Route::get('/searchproducts', 'Frontend\UserController@searchAutoComplete')->name('searchproductajax');
 Route::post('/searching', 'Frontend\UserController@result');
 
 Route::get('collection/{group_url}', 'Frontend\CollectionController@groupView');

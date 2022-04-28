@@ -42,9 +42,10 @@ class SubCategory extends Model
      *
      * @return void
      */
-    public static function indexmodel()
+    public static function indexModel()
     {
-        return SubCategory::where('status', '!=', '2')->paginate(21);
+        return SubCategory::where('status', '!=', notShow)
+            ->paginate(subCategoryPagination);
     }
 
     /**
@@ -53,10 +54,10 @@ class SubCategory extends Model
      * @param  mixed $id
      * @return void
      */
-    public static function editmodel($id)
+    public static function editModel($id)
     {
         if (empty($id)) {
-            return null;
+            return false;
         }
         return SubCategory::find($id);
     }
@@ -69,10 +70,10 @@ class SubCategory extends Model
      * @param  mixed $image
      * @return void
      */
-    public static function storemodel($data, $hasfileimage, $image)
+    public static function storeModel($data, $hasfileimage, $image)
     {
         if (empty($data)) {
-            return null;
+            return false;
         }
         $subcategory = new Subcategory();
         foreach ($data as $attr => $value) {
@@ -97,14 +98,14 @@ class SubCategory extends Model
      * @param  mixed $image
      * @return void
      */
-    public static function updatemodel($id, $data, $hasfileimage, $image)
+    public static function updateModel($id, $data, $hasfileimage, $image)
     {
         if (empty($data) || empty($id)) {
-            return null;
+            return false;
         }
         $subcategory = SubCategory::find($id);
         if (empty($subcategory)) {
-            return null;
+            return false;
         }
         foreach ($data as $attr => $value) {
             $subcategory->{$attr} = $value;
@@ -130,10 +131,10 @@ class SubCategory extends Model
      * @param  mixed $id
      * @return void
      */
-    public static function deletemodel($id)
+    public static function deleteModel($id)
     {
         if (empty($id)) {
-            return null;
+            return false;
         }
         $subcategory = SubCategory::find($id);
         $subcategory->status = '2';
@@ -146,12 +147,13 @@ class SubCategory extends Model
      * @param  mixed $subcate_url
      * @return void
      */
-    public static function subcategorymodelurl($subcate_url)
+    public static function subCategoryModelUrl($subcate_url)
     {
         if (empty($subcate_url)) {
             return null;
         }
-        return Subcategory::where('url', $subcate_url)->first();
+        return Subcategory::where('url', $subcate_url)
+            ->first();
     }
 
     /**
@@ -160,11 +162,14 @@ class SubCategory extends Model
      * @param  mixed $category_id
      * @return void
      */
-    public static function subcategorymodelid($category_id)
+    public static function subCategoryModelId($category_id)
     {
         if (empty($category_id)) {
             return null;
         }
-        return Subcategory::where('category_id', $category_id)->where('status', '!=', '2')->where('status', '0')->get();
+        return Subcategory::where('category_id', $category_id)
+            ->where('status', '!=', notShow)
+            ->where('status', show)
+            ->get();
     }
 }

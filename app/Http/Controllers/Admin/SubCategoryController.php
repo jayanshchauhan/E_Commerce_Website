@@ -20,8 +20,8 @@ class SubCategoryController extends Controller
     public function index()
     {
         try {
-            $category = Category::indexmodel();
-            $subcategory = SubCategory::indexmodel();
+            $category = Category::indexModel();
+            $subcategory = SubCategory::indexModel();
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
@@ -39,11 +39,11 @@ class SubCategoryController extends Controller
     public function edit($id)
     {
         if (empty($id)) {
-            return NULL;
+            return view('errors.error_show');
         }
         try {
-            $category = Category::indexmodel();
-            $subcategory = SubCategory::editmodel($id);
+            $category = Category::indexModel();
+            $subcategory = SubCategory::editModel($id);
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
@@ -72,7 +72,7 @@ class SubCategoryController extends Controller
         $data['priority'] = $request->input('priority');
         $data['status'] = $request->input('status');
         try {
-            Subcategory::storemodel($data, $hasfileimage, $image);
+            Subcategory::storeModel($data, $hasfileimage, $image);
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
@@ -91,7 +91,7 @@ class SubCategoryController extends Controller
     public function update(Request $request, $id)
     {
         if (empty($id)) {
-            return NULL;
+            return view('errors.error_show');
         }
         $data = [];
         $data['category_id'] =  $request->input('category_id');
@@ -105,7 +105,7 @@ class SubCategoryController extends Controller
         $data['priority'] = $request->input('priority');
         $data['status'] = $request->input('status');
         try {
-            Subcategory::updatemodel($id, $data, $hasfileimage, $image);
+            Subcategory::updateModel($id, $data, $hasfileimage, $image);
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
@@ -122,10 +122,10 @@ class SubCategoryController extends Controller
     public function delete($id)
     {
         if (empty($id)) {
-            return NULL;
+            return view('errors.error_show');
         }
         try {
-            SubCategory::deletemodel($id);
+            SubCategory::deleteModel($id);
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }

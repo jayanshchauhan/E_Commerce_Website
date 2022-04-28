@@ -22,7 +22,7 @@ class CollectionController extends Controller
     public function index()
     {
         try {
-            $groups = Groups::groupmodel();
+            $groups = Groups::groupModel();
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
@@ -38,10 +38,10 @@ class CollectionController extends Controller
      */
     public function groupview($group_url)
     {
-        $group = Groups::groupviewmodelurl($group_url);
+        $group = Groups::groupViewModelUrl($group_url);
         $group_id = $group->id;
         try {
-            $category = Category::categoryviewmodelid($group_id);
+            $category = Category::categoryViewModelId($group_id);
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
@@ -59,10 +59,10 @@ class CollectionController extends Controller
      */
     public function categoryView($group_url, $cate_url)
     {
-        $category = Category::categoryviewmodelurl($cate_url);
+        $category = Category::categoryViewModelUrl($cate_url);
         $category_id = $category->id;
         try {
-            $subcategory = Subcategory::subcategorymodelid($category_id);
+            $subcategory = Subcategory::subCategoryModelId($category_id);
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
@@ -82,20 +82,20 @@ class CollectionController extends Controller
     public function subCategoryView($group_url, $cate_url, $subcate_url)
     {
         try {
-            $subcategory = Subcategory::subcategorymodelurl($subcate_url);
+            $subcategory = Subcategory::subCategoryModelUrl($subcate_url);
             $subcategory_id = $subcategory->id;
 
             if (Request::get('sort') == 'price_asc') {
 
-                $products = Product::productviewmodelsort($subcategory_id, 'offer_price', 'asc');
+                $products = Product::productViewModelSort($subcategory_id, 'offer_price', 'asc');
             } elseif (Request::get('sort') == 'price_desc') {
 
-                $products = Product::productviewmodelsort($subcategory_id, 'offer_price', 'desc');
+                $products = Product::productViewModelSort($subcategory_id, 'offer_price', 'desc');
             } elseif (Request::get('sort') == 'newest') {
 
-                $products = Product::productviewmodelsort($subcategory_id, 'created_at', 'desc');
+                $products = Product::productViewModelSort($subcategory_id, 'created_at', 'desc');
             } else {
-                $products = Product::productviewmodelid($subcategory_id);
+                $products = Product::productViewModelId($subcategory_id);
             }
         } catch (\Exception $exception) {
             return view('errors.error_show');
@@ -117,7 +117,7 @@ class CollectionController extends Controller
     public function productView($group_url, $cate_url, $subcate_url, $prod_url)
     {
         try {
-            $products = Product::productviewmodelurl($prod_url);
+            $products = Product::productViewModelUrl($prod_url);
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
@@ -134,17 +134,18 @@ class CollectionController extends Controller
     {
         if (Request::get('sort') == 'price_asc') {
 
-            $products = Product::productviewmodelsortwithoutsubid('offer_price', 'asc');
+            $products = Product::productViewModelSortWithoutSubid('offer_price', 'asc');
         } elseif (Request::get('sort') == 'price_desc') {
 
-            $products = Product::productviewmodelsortwithoutsubid('offer_price', 'desc');
+            $products = Product::productViewModelSortWithoutSubid('offer_price', 'desc');
         } elseif (Request::get('sort') == 'newest') {
 
-            $products = Product::productviewmodelsortwithoutsubid('created_at', 'desc');
+            $products = Product::productViewModelSortWithoutSubid('created_at', 'desc');
         } else {
             $products = Product::all();
         }
-        return view('frontend.collections.allproducts')->with('products', $products);
+        return view('frontend.collections.allproducts')
+            ->with('products', $products);
     }
 
     /**
@@ -160,7 +161,7 @@ class CollectionController extends Controller
         $name = Request::input('name');
         $page = Request::input('page', 1);
         try {
-            return Product::showbyapimodel($sort, $id, $name, $page);
+            return Product::showByApiModel($sort, $id, $name, $page);
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
@@ -177,7 +178,7 @@ class CollectionController extends Controller
     public function views($prod_url)
     {
         try {
-            $products = Product::productviewmodelurl($prod_url);
+            $products = Product::productViewModelUrl($prod_url);
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }

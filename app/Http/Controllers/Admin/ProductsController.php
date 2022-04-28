@@ -18,7 +18,7 @@ class ProductsController extends Controller
     public function index()
     {
         try {
-            $products = Product::indexmodel();
+            $products = Product::indexModel();
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
@@ -34,7 +34,7 @@ class ProductsController extends Controller
     public function create()
     {
         try {
-            $subcategory = Subcategory::indexmodel();
+            $subcategory = Subcategory::indexModel();
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
@@ -52,11 +52,11 @@ class ProductsController extends Controller
     public function edit(Request $request, $id)
     {
         if (empty($id)) {
-            return NULL;
+            return view('errors.error_show');
         }
         try {
-            $subcategory = SubCategory::indexmodel();
-            $product = Product::editmodel($id);
+            $subcategory = SubCategory::indexModel();
+            $product = Product::editModel($id);
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
@@ -100,7 +100,7 @@ class ProductsController extends Controller
         $data['status'] = $request->input('status') == true ? '1' : '0';
 
         try {
-            Product::storemodel($data, $hasfileprod_image, $prod_image);
+            Product::storeModel($data, $hasfileprod_image, $prod_image);
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
@@ -119,7 +119,7 @@ class ProductsController extends Controller
     public function update(Request $request, $id)
     {
         if (empty($id)) {
-            return NULL;
+            return view('errors.error_show');
         }
         $data = [];
         $data['name'] = $request->input('name');
@@ -148,7 +148,7 @@ class ProductsController extends Controller
         $data['status'] = $request->input('status') == true ? '1' : '0';
 
         try {
-            Product::updatemodel($id, $data, $hasfileprod_image, $prod_image);
+            Product::updateModel($id, $data, $hasfileprod_image, $prod_image);
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }
@@ -166,10 +166,10 @@ class ProductsController extends Controller
     public function delete($id)
     {
         if (empty($id)) {
-            return NULL;
+            return view('errors.error_show');
         }
         try {
-            return Product::deletemodel($id);
+            return Product::deleteModel($id);
         } catch (\Exception $exception) {
             return view('errors.error_show');
         }

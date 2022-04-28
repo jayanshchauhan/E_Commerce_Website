@@ -28,21 +28,27 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public static function indexmodel()
+    public static function indexModel()
     {
-        return User::where('status', '!=', '1')->paginate(3);
+        return User::where('status', '!=', notShow)->paginate(userPagination);
     }
 
-    public static function editmodel($id)
+    public static function editModel($id)
     {
+        if (empty($id)) {
+            return false;
+        }
         return User::find($id);
     }
 
-    public static function updatemodel($id, $data)
+    public static function updateModel($id, $data)
     {
+        if (empty($id) || empty($data)) {
+            return false;
+        }
         $user = User::find($id);
         if (empty($user)) {
-            return null;
+            return false;
         }
 
         foreach ($data as $attr => $value) {
@@ -51,8 +57,11 @@ class User extends Authenticatable
         $user->update();
     }
 
-    public static function deletemodel($id)
+    public static function deleteModel($id)
     {
+        if (empty($id)) {
+            return false;
+        }
         $user = User::find($id);
         $user->status = '1';
         $user->update();
