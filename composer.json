@@ -23,7 +23,7 @@
             "Tests\\": "tests/"
         },
         "files": [
-            "app/config/constants.php"
+            "app/config/constant.php"
         ]
     },
     "scripts": {
