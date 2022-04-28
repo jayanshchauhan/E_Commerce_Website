@@ -53,9 +53,7 @@ Route::group(['middleware' => ['auth', 'isuser']], function () {
 
 Route::group(['middleware' => ['auth', 'isadmin']], function () {
 
-
     Route::get('/dashboard', 'Admin\GroupController@show');
-
 
     Route::get('registered-user', 'Admin\RegisteredController@index');
     Route::get('role-edit/{id}', 'Admin\RegisteredController@edit');

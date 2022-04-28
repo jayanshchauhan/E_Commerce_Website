@@ -1,8 +1,9 @@
 @extends('layouts.frontend')
 @section('title')
-    404 Error
+404 Error
 @endsection
 @section('content')
+
 <body>
     <div class="container mt-5 pt-5">
         <div class="alert alert-danger text-center">
@@ -11,5 +12,6 @@
         </div>
     </div>
 </body>
+
 </html>
 @endsection

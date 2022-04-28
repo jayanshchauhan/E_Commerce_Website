@@ -62,7 +62,6 @@ class RegisteredController extends Controller
         $data['name'] = $request->input('name');
         $data['roles'] = $request->input('roles');
         $data['isban'] = $request->input('isban');
-
         try {
             User::updateModel($id, $data);
         } catch (\Exception $exception) {
