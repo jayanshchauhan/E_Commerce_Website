@@ -107,7 +107,6 @@ class CartController extends Controller
             } else {
                 $totalcart = "0";
                 echo json_encode(array('totalcart' => $totalcart));
-                die;
                 return;
             }
         } catch (\Exception $exception) {
